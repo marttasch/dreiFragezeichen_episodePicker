@@ -7,7 +7,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <link rel="manifest" href="manifest.json" />
-    // add favicon
     <link rel="icon" href="images/favicon.ico" />
     <!-- ios support -->
     <link rel="apple-touch-icon" href="images/icons/icon-48-48.png" />
@@ -36,7 +35,8 @@
             <div class="content">
                 <div id="episode_selection">
                     <select name="dropdown" id="episode_dropdown"></select>
-                    <Button onclick="pickRandomEntry()" id="pickRandom">Pick a random episode <i class="fas fa-dice"></i></Button>
+                    <Button onclick="pickRandomEntry()" id="pickRandom">random episode <i class="fas fa-dice"></i></Button>
+                    <Button onclick="pickRandomEntry()" id="pickRandomFloating"><i class="fas fa-dice"></i></Button>
                 </div>
                 <div id="output"></div>
             </div>

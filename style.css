@@ -87,6 +87,7 @@ body {
 }
 
 #pickRandom {
+
     background-color: var(--accent-color);
     color: var(--text-color);
     border: none;
@@ -97,19 +98,40 @@ body {
     text-align: center;
     margin: 25px auto;
     display: block;
-    font-size: large;
+    font-size: 150%;
 }
 #pickRandom:hover {
     background-color: var(--accent-color-hover);
     color: var(--text-color);
     transform: scale(1.1);
 }
-#pickRandom i {
-    padding-left: 5px;
-    font-size: 1.3rem;
-}
+
 #pickRandom:active {
     transform: scale(1);
+}
+
+#pickRandomFloating {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    border: none;
+    border-radius: 50%;
+    width: 80px;
+    height: 80px;
+    margin: 25px auto;
+    display: block;
+    z-index: 100;
+    background-color: var(--accent-color);
+    color: var(--text-color);
+    box-shadow: 0px 0px 20px 5px rgba(84, 84, 84, 0.85);
+    text-align: center;
+    font-size: 150%;
+    cursor: pointer;
+    transition: 0.3s ease;
+}
+#pickRandomFloating i {
+    padding-left: 5px;
+    font-size: 2.1rem;
 }
 #output {
     color: var(--text-color);
