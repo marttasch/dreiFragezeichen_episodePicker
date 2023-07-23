@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Die drei Fragezeichen</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="manifest" href="manifest.json" />
+    // add favicon
+    <link rel="icon" href="images/favicon.ico" />
+    <!-- ios support -->
+    <link rel="apple-touch-icon" href="images/icons/icon-48-48.png" />
+    <link rel="apple-touch-icon" href="images/icons/icon-72-72.png" />
+    <link rel="apple-touch-icon" href="images/icons/icon-96-96.png" />
+    <link rel="apple-touch-icon" href="images/icons/icon-144-144.png" />
+    <link rel="apple-touch-icon" href="images/icons/icon-192-192.png" />
+    <link rel="apple-touch-icon" href="images/icons/icon-512-512.png" />
+    <meta name="apple-mobile-web-app-status-bar" content="#00000" />
+    <meta name="theme-color" content="#0000" />
+
+</head>
+<body>
+    <main>
+        <div class="container">
+            <h1></h1>
+            <img src="https://doodlefinder.de/wp-content/uploads/die-drei-fragezeichen-logo.png" alt="Die drei Fragezeichen" style="max-height: 60px; padding-bottom: 20px;;">
+            <div class="tabs">
+                <div class="tab active" onclick="changeTab(0)">
+                    
+                    <p>Random Episode</p>
+                </div>
+                <div class="tab" onclick="changeTab(1)">Tab 2</div>
+                <div class="tab" onclick="changeTab(2)">Tab 3</div>
+            </div>
+            <div class="content">
+                <div id="episode_selection">
+                    <select name="dropdown" id="episode_dropdown"></select>
+                    <Button onclick="pickRandomEntry()" id="pickRandom">Pick a random episode <i class="fas fa-dice"></i></Button>
+                </div>
+                <div id="output"></div>
+            </div>
+            <div class="content" style="display: none;">
+                <h2>Content of Tab 2</h2>
+                <p>This is the content for Tab 2.</p>
+            </div>
+            <div class="content" style="display: none;">
+                <h2>Content of Tab 3</h2>
+                <p>This is the content for Tab 3.</p>
+            </div>
+        </div>
+
+        <script>
+            function changeTab(tabIndex) {
+                var tabs = document.getElementsByClassName('tab');
+                var content = document.getElementsByClassName('content');
+
+                for (var i = 0; i < tabs.length; i++) {
+                    tabs[i].classList.remove('active');
+                    content[i].style.display = 'none';
+                }
+
+                tabs[tabIndex].classList.add('active');
+                content[tabIndex].style.display = 'block';
+            }
+        </script>
+
+        <script>
+            window.onload = function() {
+                setTimeout(pickRandomEntry, 100);
+                setTimeout(createDropdown, 100);
+            }
+        </script>
+    </main>
+    <script src="app.js"></script>
+</body>
+</html>
