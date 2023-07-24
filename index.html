@@ -35,11 +35,11 @@
             <div class="content">
                 <div id="episode_selection">
                     <select name="dropdown" id="episode_dropdown"></select>
-                    <Button onclick="pickRandomEntry()" id="pickRandom">random episode <i class="fas fa-dice"></i></Button>
-                    <Button onclick="pickRandomEntry()" id="pickRandomFloating"><i class="fas fa-dice"></i></Button>
+                    <Button onclick="shuffleButtonHandler()" id="pickRandom">random episode <i class="fas fa-dice"></i></Button>
+                    <Button onclick="shuffleButtonHandler()" id="pickRandomFloating"><i class="fas fa-dice"></i></Button>
                 </div>
-                <div id="output"></div>
-            </div>
+                <div class="episodeContainer" id="episodeContainer"></div>
+                <div class="episodeContainer" id="episodeContainerTransition"></div>
             <div class="content" style="display: none;">
                 <h2>Content of Tab 2</h2>
                 <p>This is the content for Tab 2.</p>
@@ -62,13 +62,6 @@
 
                 tabs[tabIndex].classList.add('active');
                 content[tabIndex].style.display = 'block';
-            }
-        </script>
-
-        <script>
-            window.onload = function() {
-                setTimeout(pickRandomEntry, 100);
-                setTimeout(createDropdown, 100);
             }
         </script>
     </main>
