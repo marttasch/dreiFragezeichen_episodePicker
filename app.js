@@ -1,3 +1,5 @@
+const rootPath = '/ddf/';   // Specify the root path of your website, eg. '/' or '/my-app/'
+
 var jsonData; // Variable to store the JSON data
 let dropdown = document.getElementById('episode_dropdown');
 
@@ -47,8 +49,12 @@ function pickRandomEntry() {
         // if image is local available, replace path with local path
         imageURL = randomEntry['episode_image'];
         imageName = imageURL.split('/').pop();
-        // rplace image path with local path
-        randomEntry['episode_image'] = '/images/' + imageName;      
+        // replace image path with local path
+        //check if rootPath is set and ends with a slash
+        if (rootPath && rootPath.slice(-1) != '/') {
+            rootPath = rootPath + '/';
+        }
+        randomEntry['episode_image'] = rootPath + 'images/' + imageName;      
     } else {
         outputElement.textContent = "No Episode data available.";
         console.log('No JSON data available. Cant pick random entry.')
