@@ -1,4 +1,4 @@
-const rootPath = '/ddf/';   // Specify the root path of your website, eg. '/' or '/my-app/'
+const rootPath = '/';   // Specify the root path of your website, eg. '/' or '/my-app/'
 
 var jsonData; // Variable to store the JSON data
 let dropdown = document.getElementById('episode_dropdown');
