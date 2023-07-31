@@ -22,17 +22,19 @@
 <body>
     <main>
         <div class="container">
-            <h1></h1>
+            <!--- Header --->
             <img src="https://doodlefinder.de/wp-content/uploads/die-drei-fragezeichen-logo.png" alt="Die drei Fragezeichen" style="max-height: 60px; padding-bottom: 20px;;">
             <div class="tabs">
                 <div class="tab active" onclick="changeTab(0)">
                     
                     <p>Random Episode</p>
                 </div>
-                <div class="tab" onclick="changeTab(1)">Tab 2</div>
-                <div class="tab" onclick="changeTab(2)">Tab 3</div>
+                <!-- <div class="tab" onclick="changeTab(1)">Episode Overview</div> -->
             </div>
-            <div class="content">
+
+            <!--- Conent --->
+            <!--- Tab 1 --->
+            <div class="content" id="tab1_content">
                 <div id="episode_selection">
                     <select name="dropdown" id="episode_dropdown"></select>
                     <Button onclick="shuffleButtonHandler()" id="pickRandom">random episode <i class="fas fa-dice"></i></Button>
@@ -40,15 +42,14 @@
                 </div>
                 <div class="episodeContainer" id="episodeContainer"></div>
                 <div class="episodeContainer" id="episodeContainerTransition"></div>
-            <div class="content" style="display: none;">
-                <h2>Content of Tab 2</h2>
-                <p>This is the content for Tab 2.</p>
             </div>
-            <div class="content" style="display: none;">
-                <h2>Content of Tab 3</h2>
-                <p>This is the content for Tab 3.</p>
+
+            <!--- Tab 2 --->
+            <div class="content" id="tab2_conent">
+                <h2>Episode Overview</h2>
+                <h3>chronological  Overview of all Episodes</h3>
+                <p>Planned. Coming Soon...</p>
             </div>
-        </div>
 
         <script>
             function changeTab(tabIndex) {
