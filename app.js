@@ -123,15 +123,20 @@ function displayEpisode(randomEntry) {
 
     // fade in new episode
     episodeContainerTransiton.style.opacity = 1;
+    episodeContainerTransiton.style.zIndex = 10;
+    episodeContainer.style.zIndex = -1;
     
     // get current episode index
     var currentIndex = episodeContainerTransiton.getAttribute('episodeIndex');
     var currentEntry = jsonData[currentIndex];
     document.getElementById('episode_dropdown').value = currentIndex;  
 
+    // hide episodeContainerTransition
     setTimeout(function(){
         setEpisodeContainer('episodeContainer', currentEntry);
         episodeContainerTransiton.style.opacity = 0;
+        episodeContainerTransiton.style.zIndex = -1;
+        episodeContainer.style.zIndex = 10;
     }, 400);
     // prepare and load next episode for transition
     setTimeout(function(){
