@@ -29,12 +29,12 @@
                     
                     <p>Random Episode</p>
                 </div>
-                <!-- <div class="tab" onclick="changeTab(1)">Episode Overview</div> -->
+                 <!-- <div class="tab" onclick="changeTab(1)">Episode Overview</div> -->
             </div>
 
             <!--- Conent --->
             <!--- Tab 1 --->
-            <div class="content" id="tab1_content">
+            <div class="content show" id="tab1_content">
                 <div id="episode_selection">
                     <select name="dropdown" id="episode_dropdown"></select>
                     <Button onclick="shuffleButtonHandler()" id="pickRandom">random episode <i class="fas fa-dice"></i></Button>
@@ -45,7 +45,7 @@
             </div>
 
             <!--- Tab 2 --->
-            <div class="content" id="tab2_conent">
+            <div class="content hidden" id="tab2_conent">
                 <h2>Episode Overview</h2>
                 <h3>chronological  Overview of all Episodes</h3>
                 <p>Planned. Coming Soon...</p>
@@ -58,11 +58,13 @@
 
                 for (var i = 0; i < tabs.length; i++) {
                     tabs[i].classList.remove('active');
-                    content[i].style.display = 'none';
+                    content[i].classList.add('hidden');
+                    //content[i].style.display = 'none';
                 }
 
                 tabs[tabIndex].classList.add('active');
-                content[tabIndex].style.display = 'block';
+                content[tabIndex].classList.remove('hidden');
+                //content[tabIndex].style.display = 'block';
             }
         </script>
     </main>

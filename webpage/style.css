@@ -66,6 +66,14 @@ body {
     background-color: var(--secondary-background-color);
     text-align: center;
 }
+.content.show{
+    display: block;
+    visibility: visible;
+}
+.content.hidden{
+    display: none;
+    visibility: hidden;
+}
 #episode_selection{
     display: flex;
     flex-direction: row;
