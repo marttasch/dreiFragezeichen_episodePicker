@@ -1,7 +1,5 @@
 // get root path of website
 var rootPath = window.location.pathname.split('/').slice(0, -1).join('/');
-console.log('rootPath: ' + rootPath);
-
 
 var jsonData; // Variable to store the JSON data
 let dropdown = document.getElementById('episode_dropdown');
