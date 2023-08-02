@@ -4,8 +4,10 @@
     --text-color: #e7e7e7;
     --secondary-text-color: #ccc;
     --accent-color: #27374D;
-    --accent-color-hover: #192332;
+    --accent-color-hover: #4370b4;
     --accent-color-active: #393b3e;
+
+    --max-width: 700px;
 
 }
 
@@ -19,10 +21,13 @@ body {
 
 .container {
     width: 100%;
-    max-width: 700px;
+    max-width: var(--max-width);
     margin: 0 auto;
     padding: 0px;
     box-sizing: border-box;
+}
+#header {
+    padding: 20px 0px;
 }
 #installButtonWrapper {
     display: none;
@@ -175,24 +180,7 @@ body {
     padding-left: 5px;
     font-size: 2.1rem;
 }
-.episodeContainerBACK {
-    color: var(--text-color);
-    text-align: center;
-    background-color: rgba(0, 0, 0, 0.85);
-    padding: 20px 15px;
-    margin-top: 10px;
-    background-size: fill;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-blend-mode: overlay;
-    position: absolute;
-    top: 100;
-    left: 0;
-    margin-left: auto;
-    margin-right: auto;
-    width: 100%;
-    border: red solid 2px;
-}
+
 .episodeContainer{
     color: var(--text-color);
     font-size: 1.1em;
@@ -206,7 +194,7 @@ body {
     background-repeat: no-repeat;
     background-blend-mode: overlay;
     position: absolute;
-    max-width: 650px;
+    max-width: var(--max-width)
 
 
 
@@ -300,6 +288,43 @@ body {
     font-size: 2rem;
     padding: 5px;
 }
+
+
+#footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    max-width: var(--max-width);
+    height: auto;
+    padding: 5px 0px 10px 0px;
+    background-color: black;
+    color: var(--text-color);
+    text-align: center;
+    font-size: 1em;
+    z-index: 100;
+}
+#footer a {
+    color: var(--text-color);
+    text-decoration: none;
+    transition: 0.3s ease;
+}
+#footer a:hover {
+    color: var(--accent-color-hover);
+    text-decoration: underline;
+}
+#footer a .iconify{
+    color: var(--text-color);
+    text-decoration: none;
+    transition: 0.3s ease;
+}
+#footer a:hover .iconify{
+    color: var(--accent-color-hover) !important;
+    text-decoration: underline;
+    transform: scale(1.3);
+}
+
+
+
 
 @media (max-width: 480px) {
     /* CSS styles for mobile phones and smaller screens */
