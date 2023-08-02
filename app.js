@@ -188,6 +188,52 @@ setTimeout(function(){
 }, 300);
 
 
+// Check if the PWA install prompt event is supported in the current browser
+if ('onbeforeinstallprompt' in window) {
+    console.log('PWA installation is possible');
+    let deferredPrompt;
+
+    // Function to show the install button when the PWA installation is possible
+    const showInstallButton = () => {
+        const installButtonWrapper = document.getElementById('installButtonWrapper');
+        installButtonWrapper.style.display = 'block';
+    };
+    
+
+    // Function to handle the PWA installation
+    const handleInstall = () => {
+        console.log('PWA installation triggered');
+        if (deferredPrompt) {
+            // Show the PWA installation prompt
+            deferredPrompt.prompt();
+
+            // Wait for the user to respond to the prompt
+            deferredPrompt.userChoice.then((choiceResult) => {
+                if (choiceResult.outcome === 'accepted') {
+                    console.log('PWA installation accepted');
+                } else {
+                    console.log('PWA installation dismissed');
+                }
+                deferredPrompt = null;
+            });
+        }
+    };
+
+    // Event listener to show the install button when the PWA installation is possible
+    window.addEventListener('beforeinstallprompt', (e) => {
+        e.preventDefault();
+        deferredPrompt = e;
+        showInstallButton();
+    });
+
+    // add event listener to install button
+    document.getElementById('installButton').addEventListener('click', handleInstall);
+} else {
+    console.log('PWA installation is not possible');
+}
+
+
+
 
 
 

@@ -24,6 +24,39 @@ body {
     padding: 0px;
     box-sizing: border-box;
 }
+#installButtonWrapper {
+    display: none;
+    position: relative;
+    top: 0;
+    left: 0;
+    padding: 10px;
+    margin: 0 0 20px 0;
+    z-index: 1000;
+    width: 100%;
+    text-align: center;
+    background-color: var(--accent-color);
+}
+
+#installButton {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    margin: 0 0 0 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    text-align: center;
+    font-size: 110%;
+}
+#installButton .iconify {
+    padding-left: 8px;
+    color: white;
+}
+
+#installButton:hover {
+    background-color: #45a049;
+}
+
 
 .tabs {
     display: flex;
