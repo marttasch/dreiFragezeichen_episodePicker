@@ -55,7 +55,7 @@ function pickRandomEntry() {
         if (rootPath && rootPath.slice(-1) != '/') {
             rootPath = rootPath + '/';
         }
-        randomEntry['episode_image'] = rootPath + 'images/' + imageName;      
+        randomEntry['episode_image'] = rootPath + 'assets/episode_images/' + imageName;      
     } else {
         outputElement.textContent = "No Episode data available.";
         console.log('No JSON data available. Cant pick random entry.')
@@ -232,6 +232,10 @@ if ('onbeforeinstallprompt' in window) {
     console.log('PWA installation is not possible');
 }
 
+
+// set headerImage src to root path/assets/die-drei-fragezeichen-logo.png
+var headerImage = document.getElementById('headerImage');
+headerImage.src = rootPath + '/assets/die-drei-fragezeichen-logo.png';
 
 
 
