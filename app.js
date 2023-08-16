@@ -4,6 +4,7 @@ var rootPath = window.location.pathname.split('/').slice(0, -1).join('/');
 var jsonData; // Variable to store the JSON data
 let dropdown = document.getElementById('episode_dropdown');
 
+// ###### Functions ######
 function createDropdown() {
     // create dropdown with all episodes
     for (var i = 0; i < jsonData.length; i++) {
@@ -98,11 +99,21 @@ function getHTMLOutput(randomEntry){
             </div>
         </span>
         <span class="thumb" ><img id="episodeThumb" src="${randomEntry['episode_image']}" alt="${randomEntry['episode_title']}"></span>
-        <div class="episode_description" ><p>${randomEntry['episode_description']}</p></div>
+        <div class="episode_description short_description" ><p>${randomEntry['episode_description'].split(' ').slice(0, 25).join(' ') + ' [...]'}</p></div>
+        <div class="episode_description long_description" ><p>${randomEntry['episode_description']}</p></div>
+        <button id="btn-readMore" class="btn" onClick="readMoreHandler()" ><iconify-icon icon="mingcute:more-3-line"></iconify-icon>mehr lesen</button>
+        <a href="${randomEntry['episode_Pagelink']}" target="blank" ><button id="btn-moreInfo" class="btn" ><iconify-icon icon="material-symbols:info-outline"></iconify-icon>Weitere Infos</Button></a>
         ${linkList.outerHTML}
     `;
     return htmlOutput;
 }
+
+function readMoreHandler(){
+    document.querySelector('.short_description').style.display = 'none';
+    document.querySelector('.long_description').style.display = 'block';
+    document.getElementById('btn-readMore').style.display = 'none';
+}
+
 function setEpisodeContainer(containerID, randomEntry){
     var htmlOutput = getHTMLOutput(randomEntry)
     var container = document.getElementById(containerID);
