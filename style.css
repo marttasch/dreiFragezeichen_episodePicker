@@ -4,9 +4,13 @@
     --text-color: #e7e7e7;
     --secondary-text-color: #ccc;
     --accent-color: #27374D;
-    --accent-color-hover: #192332;
+    --accent-color-hover: #3f5a83;
     --accent-color-active: #393b3e;
 
+    --max-width: 700px;
+
+    --mobile-width: 480px;
+    --tablet-width: 768px;
 }
 
 body {
@@ -19,12 +23,72 @@ body {
 
 .container {
     width: 100%;
-    max-width: 700px;
+    max-width: var(--max-width);
     margin: 0 auto;
     padding: 0px;
     box-sizing: border-box;
 }
 
+/* ### General Styles ### */
+
+/* Button Styles */
+.btn{
+    background-color: var(--accent-color);
+    border: var(--secondary-background-color) solid 2px;
+    border-radius: 8px;
+    color: var(--text-color);
+    padding: 5px 10px;;
+    font-size: 0.8em;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s ease;
+}
+.btn:hover{
+    background-color: var(--accent-color-hover);
+}
+.btn iconify-icon {
+    transform: scale(1.5);
+    padding: 0px 5px 0px 0px;
+}
+
+/* Header Styles */
+#header {
+    padding: 20px 0px;
+}
+#installButtonWrapper {
+    display: none;
+    position: relative;
+    top: 0;
+    left: 0;
+    padding: 10px;
+    margin: 0 0 20px 0;
+    z-index: 1000;
+    width: 100%;
+    text-align: center;
+    background-color: var(--accent-color);
+}
+
+#installButton {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    margin: 0 0 0 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    text-align: center;
+    font-size: 110%;
+}
+#installButton .iconify {
+    padding-left: 8px;
+    color: white;
+}
+
+#installButton:hover {
+    background-color: #45a049;
+}
+
+/* Tabs Styles */
 .tabs {
     display: flex;
     justify-content: space-between;
@@ -59,8 +123,6 @@ body {
     background-color: var(--accent-color-active);
     border: var(--secondary-text-color) 2px solid;
 }
-
-/* Content Styles */
 .content {
     padding: 20px;
     background-color: var(--secondary-background-color);
@@ -74,13 +136,14 @@ body {
     display: none;
     visibility: hidden;
 }
+
+/* #### Episode Styles #### */
 #episode_selection{
     display: flex;
     flex-direction: row;
     justify-content: center;
     align-items: center;
 }
-
 #episode_dropdown{
     background-color: var(--accent-color);
     color: var(--text-color);
@@ -96,7 +159,6 @@ body {
 }
 
 #pickRandom {
-
     background-color: var(--accent-color);
     color: var(--text-color);
     border: none;
@@ -112,9 +174,7 @@ body {
 #pickRandom:hover {
     background-color: var(--accent-color-hover);
     color: var(--text-color);
-    transform: scale(1.1);
 }
-
 #pickRandom:active {
     transform: scale(1);
 }
@@ -142,24 +202,10 @@ body {
     padding-left: 5px;
     font-size: 2.1rem;
 }
-.episodeContainerBACK {
-    color: var(--text-color);
-    text-align: center;
-    background-color: rgba(0, 0, 0, 0.85);
-    padding: 20px 15px;
-    margin-top: 10px;
-    background-size: fill;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-blend-mode: overlay;
-    position: absolute;
-    top: 100;
-    left: 0;
-    margin-left: auto;
-    margin-right: auto;
-    width: 100%;
-    border: red solid 2px;
+#pickRandomFloating:hover {
+    background-color: var(--accent-color-hover);
 }
+
 .episodeContainer{
     color: var(--text-color);
     font-size: 1.1em;
@@ -173,10 +219,7 @@ body {
     background-repeat: no-repeat;
     background-blend-mode: overlay;
     position: absolute;
-    max-width: 650px;
-
-
-
+    max-width: var(--max-width)
 }
 #episodeContainer{
     opacity: 0;
@@ -190,7 +233,6 @@ body {
     transition: opacity 0.5s ease;
     visibility: visible;
 }
-
 
 .title {
     text-align: left;
@@ -225,12 +267,38 @@ body {
 
     transition: opacity 0.3s ease;
 }
+
+.markFavorite {
+    position: relative;
+    top: -40px;
+    left: 125px;
+    color: var(--text-color);
+    font-size: 2.5rem;
+    cursor: pointer;
+    transition: 0.3s ease;
+}
+.markFavorite iconify-icon{
+    background-color: var(--accent-color);
+    padding: 5px 3px 1px 4px;
+    border-radius: 50%;
+}
 .episode_description {
+    position: relative;
+    top: -40px;
     display: block;
     text-align: center;
+    overflow: hidden;
     max-width: 600px;
     margin: 10px auto;
+    transition: max-height 0.5s ease;
 }
+.short_description {
+    display: block;
+}
+.long_description {
+    display: none;
+}
+
 .link_list {
     flex: 1;
     flex-direction: row;
@@ -268,6 +336,84 @@ body {
     padding: 5px;
 }
 
+/* #### Favorites Styles #### */
+#favoritesContainer{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    flex-shrink: 1;
+
+    margin-bottom: 40px;
+}
+.FavEpisodeContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+
+    margin: 10px;
+    padding: 10px 20px;
+    max-width: 40%;
+    min-width: 250px;
+
+    background-color: rgba(0, 0, 0, 0.92);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-blend-mode: overlay;
+    border: var(--secondary-background-color) solid 2px;
+    border-radius: 20px;
+}
+.FavEpisodeContainer h2{
+    margin-top: 5px;
+    margin-bottom: 5px;
+
+}
+.FavEpisodeContainer img{
+    max-width: 150px;
+    height: auto !important;
+    min-height: 60px;
+}
+
+
+/* #### Footer Styles #### */
+#footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    max-width: var(--max-width);
+    height: auto;
+    padding: 5px 0px 10px 0px;
+    background-color: black;
+    color: var(--text-color);
+    text-align: center;
+    font-size: 1em;
+    z-index: 100;
+}
+#footer a {
+    color: var(--text-color);
+    text-decoration: none;
+    transition: 0.3s ease;
+}
+#footer a:hover {
+    color: var(--accent-color-hover);
+    text-decoration: underline;
+}
+#footer a iconify-icon{
+    color: var(--text-color);
+    text-decoration: none;
+    transform: scale(1.5);
+    padding: 5px 0px 0px 5px;
+    transition: 0.3s ease;
+}
+#footer a:hover iconify-icon{
+    color: var(--accent-color-hover) !important;
+    text-decoration: underline;
+}
+
 @media (max-width: 480px) {
     /* CSS styles for mobile phones and smaller screens */
     .container {
@@ -276,7 +422,6 @@ body {
     }
     .tabs p{
         text-align: center;
-
     }
     .content {
         padding: 10px 0px 0px 0px;

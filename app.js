@@ -4,6 +4,27 @@ var rootPath = window.location.pathname.split('/').slice(0, -1).join('/');
 var jsonData; // Variable to store the JSON data
 let dropdown = document.getElementById('episode_dropdown');
 
+// ###### Functions ######
+function onFavoritesTabHandler(tabIndex=1) {
+    listFavorites();
+    changeTab(tabIndex);
+}
+
+function changeTab(tabIndex) {
+    var tabs = document.getElementsByClassName('tab');
+    var content = document.getElementsByClassName('content');
+
+    for (var i = 0; i < tabs.length; i++) {
+        tabs[i].classList.remove('active');
+        content[i].classList.add('hidden');
+        //content[i].style.display = 'none';
+    }
+
+    tabs[tabIndex].classList.add('active');
+    content[tabIndex].classList.remove('hidden');
+    //content[tabIndex].style.display = 'block';
+}
+
 function createDropdown() {
     // create dropdown with all episodes
     for (var i = 0; i < jsonData.length; i++) {
@@ -55,7 +76,7 @@ function pickRandomEntry() {
         if (rootPath && rootPath.slice(-1) != '/') {
             rootPath = rootPath + '/';
         }
-        randomEntry['episode_image'] = rootPath + 'images/' + imageName;      
+        randomEntry['episode_image'] = rootPath + 'assets/episode_images/' + imageName;      
     } else {
         outputElement.textContent = "No Episode data available.";
         console.log('No JSON data available. Cant pick random entry.')
@@ -89,6 +110,18 @@ function getHTMLOutput(randomEntry){
             linkList.appendChild(linkItem);
         };
     };
+
+    // if episode is in favorites, mark it
+    favorites = JSON.parse(localStorage.getItem('favorites'));
+    if (!favorites) {
+        favorites = [];
+    }
+    if (favorites.includes(randomEntry['episode_number'])) {
+        var favoriteIcon = '<iconify-icon icon="mdi:heart"></iconify-icon>';
+    } else {
+        var favoriteIcon = '<iconify-icon icon="mdi:heart-outline"></iconify-icon>';
+    }
+
     
     var htmlOutput = `
         <span class="title">    
@@ -97,12 +130,57 @@ function getHTMLOutput(randomEntry){
                 <h3>Folge ${randomEntry['episode_number']}</h3> - <p>${randomEntry['episode_date']}</p>
             </div>
         </span>
-        <span class="thumb" ><img id="episodeThumb" src="${randomEntry['episode_image']}" alt="${randomEntry['episode_title']}"></span>
-        <div class="episode_description" ><p>${randomEntry['episode_description']}</p></div>
+        <span class="thumb" >
+            <img id="episodeThumb" src="${randomEntry['episode_image']}" alt="${randomEntry['episode_title']}">
+        </span>
+        
+        <span class="markFavorite" onClick="markFavoriteHandler()" >${favoriteIcon}</span>
+        <div class="episode_description short_description" ><p>${randomEntry['episode_description'].split(' ').slice(0, 25).join(' ') + ' [...]'}</p></div>
+        <div class="episode_description long_description" ><p>${randomEntry['episode_description']}</p></div>
+        <button id="btn-readMore" class="btn" onClick="readMoreHandler()" ><iconify-icon icon="mingcute:more-3-line"></iconify-icon>mehr lesen</button>
+        <a href="${randomEntry['episode_Pagelink']}" target="blank" ><button id="btn-moreInfo" class="btn" ><iconify-icon icon="material-symbols:info-outline"></iconify-icon>Weitere Infos</Button></a>
         ${linkList.outerHTML}
     `;
     return htmlOutput;
 }
+
+
+function markFavoriteHandler(){
+    favorites = JSON.parse(localStorage.getItem('favorites'));
+    if (!favorites) {
+        favorites = [];
+    }
+    //get episode index
+    var episodeNumber = document.getElementById('episodeContainer').getAttribute('episodeNumber');
+
+    // if marked as favorite, unmark it
+    if (favorites.includes(episodeNumber)) {
+        // -- unmark favorite
+        // remove item from favorites
+        favorites.splice(favorites.indexOf(episodeNumber), 1);
+        // save favorites to local storage
+        localStorage.setItem('favorites', JSON.stringify(favorites));
+        // change icon
+        document.querySelector('.markFavorite').innerHTML = '<iconify-icon icon="mdi:heart-outline"></iconify-icon>';
+    } else {
+        // -- mark favorite
+        // add item to favorites
+        favorites.push(episodeNumber);
+        // remove duplicates
+        favorites = [...new Set(favorites)];
+        // save favorites to local storage
+        localStorage.setItem('favorites', JSON.stringify(favorites));
+        // change icon
+        document.querySelector('.markFavorite').innerHTML = '<iconify-icon icon="mdi:heart"></iconify-icon>';
+    }
+}
+
+function readMoreHandler(){
+    document.querySelector('.short_description').style.display = 'none';
+    document.querySelector('.long_description').style.display = 'block';
+    document.getElementById('btn-readMore').style.display = 'none';
+}
+
 function setEpisodeContainer(containerID, randomEntry){
     var htmlOutput = getHTMLOutput(randomEntry)
     var container = document.getElementById(containerID);
@@ -149,6 +227,57 @@ function shuffleButtonHandler() {
     displayEpisode(randomEntry);
 }
 
+// -- favorites --
+function listFavorites() {
+    favoritesContainer = document.getElementById('favoritesContainer');
+    favoritesContainer.innerHTML = '';
+
+    favorites = JSON.parse(localStorage.getItem('favorites'));
+    if (!favorites) {
+        favorites = [];
+    }
+    if (favorites.length > 0) {
+        for (var i = 0; i < favorites.length; i++) {
+            var episodeNumber = favorites[i]
+            // search for episode with episodeNumber in jsonData
+            var episode = jsonData.find(episode => episode['episode_number'] == episodeNumber);
+
+            container = document.createElement('div');
+            container.className = 'FavEpisodeContainer';
+            container.style.backgroundImage = 'url(' + episode['episode_image'] +')';
+            container.setAttribute('episodeNumber', episode['episode_number']);
+            container.setAttribute('episodeTitle', episode['episode_title']);
+            container.setAttribute('episodeIndex', jsonData.indexOf(episode));
+            container.setAttribute('onClick', 'favEpisodeContainerHandler(this)');
+
+            container.innerHTML = `
+                <span class="thumb" >
+                    <img id="episodeThumb" src="${episode['episode_image']}" alt="${episode['episode_title']}">
+                </span>
+                <span class="infos">
+                    <h2>${episode['episode_title']}</h2>
+                    <div class="subtitle">
+                        <h3>Folge ${episode['episode_number']}</h3> - <p>${episode['episode_date']}</p>
+                    </div>
+                </span>
+                    `
+            favoritesContainer.appendChild(container);
+        }
+    } else {
+        favoritesContainer.innerHTML = '<p>Keine Favoriten vorhanden.</p>';
+        console.log('No favorites available.');
+    }
+}
+
+function favEpisodeContainerHandler(container) {
+    var episodeNumber = container.getAttribute('episodeNumber');
+    // search for episode with episodeNumber in jsonData
+    var episode = jsonData.find(episode => episode['episode_number'] == episodeNumber);
+
+    setEpisodeContainer('episodeContainer', episode);
+    changeTab(0);
+}
+
 // ###### Main #####
 // #################
 // -- variables --
@@ -163,6 +292,7 @@ readJSONFile(jsonFilePath, displayJSONData);
 // wait for JSON data to be loaded, break if not loaded after 5 seconds
 setTimeout(function(){
     createDropdown();
+    listFavorites();
     // Pick a random entry from the JSON data and display it
     var randomEntry = pickRandomEntry();
     setEpisodeContainer('episodeContainer', randomEntry);
@@ -186,6 +316,56 @@ setTimeout(function(){
 
 
 }, 300);
+
+
+// Check if the PWA install prompt event is supported in the current browser
+if ('onbeforeinstallprompt' in window) {
+    console.log('PWA installation is possible');
+    let deferredPrompt;
+
+    // Function to show the install button when the PWA installation is possible
+    const showInstallButton = () => {
+        const installButtonWrapper = document.getElementById('installButtonWrapper');
+        installButtonWrapper.style.display = 'block';
+    };
+    
+
+    // Function to handle the PWA installation
+    const handleInstall = () => {
+        console.log('PWA installation triggered');
+        if (deferredPrompt) {
+            // Show the PWA installation prompt
+            deferredPrompt.prompt();
+
+            // Wait for the user to respond to the prompt
+            deferredPrompt.userChoice.then((choiceResult) => {
+                if (choiceResult.outcome === 'accepted') {
+                    console.log('PWA installation accepted');
+                } else {
+                    console.log('PWA installation dismissed');
+                }
+                deferredPrompt = null;
+            });
+        }
+    };
+
+    // Event listener to show the install button when the PWA installation is possible
+    window.addEventListener('beforeinstallprompt', (e) => {
+        e.preventDefault();
+        deferredPrompt = e;
+        showInstallButton();
+    });
+
+    // add event listener to install button
+    document.getElementById('installButton').addEventListener('click', handleInstall);
+} else {
+    console.log('PWA installation is not possible');
+}
+
+
+// set headerImage src to root path/assets/die-drei-fragezeichen-logo.png
+var headerImage = document.getElementById('headerImage');
+headerImage.src = rootPath + '/assets/die-drei-fragezeichen-logo.png';
 
 
 

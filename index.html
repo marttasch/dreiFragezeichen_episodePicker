@@ -4,6 +4,8 @@
     <title>Die drei Fragezeichen</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+    <script src="https://code.iconify.design/3/3.1.0/iconify.min.js"></script>
+    <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <link rel="manifest" href="manifest.json" />
@@ -23,13 +25,16 @@
     <main>
         <div class="container">
             <!--- Header --->
-            <img src="https://doodlefinder.de/wp-content/uploads/die-drei-fragezeichen-logo.png" alt="Die drei Fragezeichen" style="max-height: 60px; padding-bottom: 20px;;">
-            <div class="tabs">
-                <div class="tab active" onclick="changeTab(0)">
-                    
-                    <p>Random Episode</p>
+            <div id="header">
+                <div id="installButtonWrapper">
+                    <p>Install this App on your Device and create a Homescree Shortcut.</p>
+                    <button id="installButton" >Install<span class="iconify" data-icon="mdi:cellphone-arrow-down-variant" style="color: white;"></span></span></button>
                 </div>
-                 <!-- <div class="tab" onclick="changeTab(1)">Episode Overview</div> -->
+                <img id="headerImage" src="/assets/die-drei-fragezeichen-logo.png" alt="Die drei Fragezeichen" style="max-height: 60px; padding-bottom: 20px;;">
+            </div>
+            <div class="tabs">
+                <div class="tab active" onclick="changeTab(0)">Random Episode</div>
+                 <div class="tab" onclick="onFavoritesTabHandler(1)">Favorites</div>
             </div>
 
             <!--- Conent --->
@@ -46,27 +51,14 @@
 
             <!--- Tab 2 --->
             <div class="content hidden" id="tab2_conent">
-                <h2>Episode Overview</h2>
-                <h3>chronological  Overview of all Episodes</h3>
-                <p>Planned. Coming Soon...</p>
+                <h2>Favorites</h2>
+                <div id="favoritesContainer"></div>
             </div>
 
-        <script>
-            function changeTab(tabIndex) {
-                var tabs = document.getElementsByClassName('tab');
-                var content = document.getElementsByClassName('content');
+            <div id="footer">
+                <p></p><a href="https://github.com/marttasch/dreiFragezeichen_episodePicker"><iconify-icon icon="jam:github"></iconify-icon></a></p> 
+            </div>
 
-                for (var i = 0; i < tabs.length; i++) {
-                    tabs[i].classList.remove('active');
-                    content[i].classList.add('hidden');
-                    //content[i].style.display = 'none';
-                }
-
-                tabs[tabIndex].classList.add('active');
-                content[tabIndex].classList.remove('hidden');
-                //content[tabIndex].style.display = 'block';
-            }
-        </script>
     </main>
     <script src="app.js"></script>
 </body>

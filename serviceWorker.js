@@ -6,8 +6,7 @@ let assets = [
     '/app.js',
     '/styles.css',
     '/episode_list.json',
-    '/images/ddf_cd_167.jpg',
-    '/images/*.jpg'
+    '/assets/die-drei-fragezeichen-logo.png',
 ]
 
 // read the JSON file and store the image URLs in assets
