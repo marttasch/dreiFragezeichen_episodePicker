@@ -90,6 +90,19 @@ function getHTMLOutput(randomEntry){
             linkList.appendChild(linkItem);
         };
     };
+
+    // if episode is in favorites, mark it
+    favorites = JSON.parse(localStorage.getItem('favorites'));
+    console.log(favorites);
+    if (!favorites) {
+        favorites = [];
+    }
+    if (favorites.includes(randomEntry['episode_number'])) {
+        var favoriteIcon = '<iconify-icon icon="mdi:heart"></iconify-icon>';
+    } else {
+        var favoriteIcon = '<iconify-icon icon="mdi:heart-outline"></iconify-icon>';
+    }
+
     
     var htmlOutput = `
         <span class="title">    
@@ -98,7 +111,11 @@ function getHTMLOutput(randomEntry){
                 <h3>Folge ${randomEntry['episode_number']}</h3> - <p>${randomEntry['episode_date']}</p>
             </div>
         </span>
-        <span class="thumb" ><img id="episodeThumb" src="${randomEntry['episode_image']}" alt="${randomEntry['episode_title']}"></span>
+        <span class="thumb" >
+            <img id="episodeThumb" src="${randomEntry['episode_image']}" alt="${randomEntry['episode_title']}">
+        </span>
+        
+        <span class="markFavorite" onClick="markFavoriteHandler()" >${favoriteIcon}</span>
         <div class="episode_description short_description" ><p>${randomEntry['episode_description'].split(' ').slice(0, 25).join(' ') + ' [...]'}</p></div>
         <div class="episode_description long_description" ><p>${randomEntry['episode_description']}</p></div>
         <button id="btn-readMore" class="btn" onClick="readMoreHandler()" ><iconify-icon icon="mingcute:more-3-line"></iconify-icon>mehr lesen</button>
@@ -106,6 +123,37 @@ function getHTMLOutput(randomEntry){
         ${linkList.outerHTML}
     `;
     return htmlOutput;
+}
+
+
+function markFavoriteHandler(){
+    favorites = JSON.parse(localStorage.getItem('favorites'));
+    if (!favorites) {
+        favorites = [];
+    }
+    //get episode index
+    var episodeNumber = document.getElementById('episodeContainer').getAttribute('episodeNumber');
+
+    // if marked as favorite, unmark it
+    if (favorites.includes(episodeNumber)) {
+        // -- unmark favorite
+        // remove item from favorites
+        favorites.splice(favorites.indexOf(episodeNumber), 1);
+        // save favorites to local storage
+        localStorage.setItem('favorites', JSON.stringify(favorites));
+        // change icon
+        document.querySelector('.markFavorite').innerHTML = '<iconify-icon icon="mdi:heart-outline"></iconify-icon>';
+    } else {
+        // -- mark favorite
+        // add item to favorites
+        favorites.push(episodeNumber);
+        // remove duplicates
+        favorites = [...new Set(favorites)];
+        // save favorites to local storage
+        localStorage.setItem('favorites', JSON.stringify(favorites));
+        // change icon
+        document.querySelector('.markFavorite').innerHTML = '<iconify-icon icon="mdi:heart"></iconify-icon>';
+    }
 }
 
 function readMoreHandler(){

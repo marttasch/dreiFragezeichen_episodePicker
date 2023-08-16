@@ -249,7 +249,23 @@ body {
 
     transition: opacity 0.3s ease;
 }
+.markFavorite {
+    position: relative;
+    top: -40px;
+    left: 125px;
+    color: var(--text-color);
+    font-size: 2.5rem;
+    cursor: pointer;
+    transition: 0.3s ease;
+}
+.markFavorite iconify-icon{
+    background-color: var(--accent-color);
+    padding: 5px 3px 1px 4px;
+    border-radius: 50%;
+}
 .episode_description {
+    position: relative;
+    top: -40px;
     display: block;
     text-align: center;
     overflow: hidden;
