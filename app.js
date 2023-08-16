@@ -5,6 +5,26 @@ var jsonData; // Variable to store the JSON data
 let dropdown = document.getElementById('episode_dropdown');
 
 // ###### Functions ######
+function onFavoritesTabHandler(tabIndex=1) {
+    listFavorites();
+    changeTab(tabIndex);
+}
+
+function changeTab(tabIndex) {
+    var tabs = document.getElementsByClassName('tab');
+    var content = document.getElementsByClassName('content');
+
+    for (var i = 0; i < tabs.length; i++) {
+        tabs[i].classList.remove('active');
+        content[i].classList.add('hidden');
+        //content[i].style.display = 'none';
+    }
+
+    tabs[tabIndex].classList.add('active');
+    content[tabIndex].classList.remove('hidden');
+    //content[tabIndex].style.display = 'block';
+}
+
 function createDropdown() {
     // create dropdown with all episodes
     for (var i = 0; i < jsonData.length; i++) {
@@ -93,7 +113,6 @@ function getHTMLOutput(randomEntry){
 
     // if episode is in favorites, mark it
     favorites = JSON.parse(localStorage.getItem('favorites'));
-    console.log(favorites);
     if (!favorites) {
         favorites = [];
     }
@@ -208,6 +227,57 @@ function shuffleButtonHandler() {
     displayEpisode(randomEntry);
 }
 
+// -- favorites --
+function listFavorites() {
+    favoritesContainer = document.getElementById('favoritesContainer');
+    favoritesContainer.innerHTML = '';
+
+    favorites = JSON.parse(localStorage.getItem('favorites'));
+    if (!favorites) {
+        favorites = [];
+    }
+    if (favorites.length > 0) {
+        for (var i = 0; i < favorites.length; i++) {
+            var episodeNumber = favorites[i]
+            // search for episode with episodeNumber in jsonData
+            var episode = jsonData.find(episode => episode['episode_number'] == episodeNumber);
+
+            container = document.createElement('div');
+            container.className = 'FavEpisodeContainer';
+            container.style.backgroundImage = 'url(' + episode['episode_image'] +')';
+            container.setAttribute('episodeNumber', episode['episode_number']);
+            container.setAttribute('episodeTitle', episode['episode_title']);
+            container.setAttribute('episodeIndex', jsonData.indexOf(episode));
+            container.setAttribute('onClick', 'favEpisodeContainerHandler(this)');
+
+            container.innerHTML = `
+                <span class="thumb" >
+                    <img id="episodeThumb" src="${episode['episode_image']}" alt="${episode['episode_title']}">
+                </span>
+                <span class="infos">
+                    <h2>${episode['episode_title']}</h2>
+                    <div class="subtitle">
+                        <h3>Folge ${episode['episode_number']}</h3> - <p>${episode['episode_date']}</p>
+                    </div>
+                </span>
+                    `
+            favoritesContainer.appendChild(container);
+        }
+    } else {
+        favoritesContainer.innerHTML = '<p>Keine Favoriten vorhanden.</p>';
+        console.log('No favorites available.');
+    }
+}
+
+function favEpisodeContainerHandler(container) {
+    var episodeNumber = container.getAttribute('episodeNumber');
+    // search for episode with episodeNumber in jsonData
+    var episode = jsonData.find(episode => episode['episode_number'] == episodeNumber);
+
+    setEpisodeContainer('episodeContainer', episode);
+    changeTab(0);
+}
+
 // ###### Main #####
 // #################
 // -- variables --
@@ -222,6 +292,7 @@ readJSONFile(jsonFilePath, displayJSONData);
 // wait for JSON data to be loaded, break if not loaded after 5 seconds
 setTimeout(function(){
     createDropdown();
+    listFavorites();
     // Pick a random entry from the JSON data and display it
     var randomEntry = pickRandomEntry();
     setEpisodeContainer('episodeContainer', randomEntry);
