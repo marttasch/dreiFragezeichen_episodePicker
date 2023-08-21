@@ -60,9 +60,7 @@ function onFavoritesTabHandler(tabIndex=1) {
     changeTab(tabIndex);
 }
 
-
-
-
+// #### Random Episode ####
 // Function to pick a random entry from the JSON data
 function pickRandomEntry() {
     var outputElement = document.getElementById('episodeContainer');
@@ -149,44 +147,7 @@ function getHTMLOutput(randomEntry){
     `;
     return htmlOutput;
 }
-
-
-function markFavoriteHandler(){
-    favorites = JSON.parse(localStorage.getItem('favorites'));
-    if (!favorites) {
-        favorites = [];
-    }
-    //get episode index
-    var episodeNumber = document.getElementById('episodeContainer').getAttribute('episodeNumber');
-
-    // if marked as favorite, unmark it
-    if (favorites.includes(episodeNumber)) {
-        // -- unmark favorite
-        // remove item from favorites
-        favorites.splice(favorites.indexOf(episodeNumber), 1);
-        // save favorites to local storage
-        localStorage.setItem('favorites', JSON.stringify(favorites));
-        // change icon
-        document.querySelector('.markFavorite').innerHTML = '<iconify-icon icon="mdi:heart-outline"></iconify-icon>';
-    } else {
-        // -- mark favorite
-        // add item to favorites
-        favorites.push(episodeNumber);
-        // remove duplicates
-        favorites = [...new Set(favorites)];
-        // save favorites to local storage
-        localStorage.setItem('favorites', JSON.stringify(favorites));
-        // change icon
-        document.querySelector('.markFavorite').innerHTML = '<iconify-icon icon="mdi:heart"></iconify-icon>';
-    }
-}
-
-function readMoreHandler(){
-    document.querySelector('.short_description').style.display = 'none';
-    document.querySelector('.long_description').style.display = 'block';
-    document.getElementById('btn-readMore').style.display = 'none';
-}
-
+// fuction to set an episode container with entry
 function setEpisodeContainer(containerID, randomEntry){
     var htmlOutput = getHTMLOutput(randomEntry)
     var container = document.getElementById(containerID);
@@ -199,6 +160,7 @@ function setEpisodeContainer(containerID, randomEntry){
     container.setAttribute('episodeTitle', randomEntry['episode_title']);
 }
 
+// function to display an episode, handles transition
 function displayEpisode(randomEntry) {
     var episodeContainer = document.getElementById('episodeContainer');
     var episodeContainerTransiton = document.getElementById('episodeContainerTransition');  
@@ -228,12 +190,43 @@ function displayEpisode(randomEntry) {
     }, 900);
 }
 
+// --- Button Handler ---
 function shuffleButtonHandler() {   
     var randomEntry = pickRandomEntry();
     displayEpisode(randomEntry);
 }
+function readMoreHandler(){
+    document.querySelector('.short_description').style.display = 'none';
+    document.querySelector('.long_description').style.display = 'block';
+    document.getElementById('btn-readMore').style.display = 'none';
+}
 
-// -- favorites --
+
+// #### Favorites ####
+function markFavoriteHandler(){
+    favorites = JSON.parse(localStorage.getItem('favorites'));
+    if (!favorites) {
+        favorites = [];
+    }
+    //get episode index
+    var episodeNumber = document.getElementById('episodeContainer').getAttribute('episodeNumber');
+
+    // if marked as favorite, unmark it
+    if (favorites.includes(episodeNumber)) {
+        // -- unmark favorite
+        favorites.splice(favorites.indexOf(episodeNumber), 1);   // remove item from favorites
+        localStorage.setItem('favorites', JSON.stringify(favorites));   // save favorites to local storage
+        document.querySelector('.markFavorite').innerHTML = '<iconify-icon icon="mdi:heart-outline"></iconify-icon>';   // change icon
+    } else {
+        // -- mark favorite
+        favorites.push(episodeNumber);   // add item to favorites
+        favorites = [...new Set(favorites)];   // remove duplicates
+        localStorage.setItem('favorites', JSON.stringify(favorites));    // save favorites to local storage
+        document.querySelector('.markFavorite').innerHTML = '<iconify-icon icon="mdi:heart"></iconify-icon>';   // change icon
+    }
+}
+
+// fuction to display all favorites 
 function listFavorites() {
     favoritesContainer = document.getElementById('favoritesContainer');
     favoritesContainer.innerHTML = '';
@@ -279,6 +272,7 @@ function listFavorites() {
     }
 }
 
+// function to handle click on favorite episode container
 function favEpisodeContainerHandler(container) {
     var episodeNumber = container.getAttribute('episodeNumber');
     // search for episode with episodeNumber in jsonData
