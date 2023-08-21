@@ -124,7 +124,6 @@ body {
     padding: 20px;
     background-color: var(--secondary-background-color);
     text-align: center;
-    min-height: 90vh;
 }
 .content.show{
     display: block;

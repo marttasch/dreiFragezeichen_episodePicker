@@ -5,26 +5,25 @@ var jsonData; // Variable to store the JSON data
 let dropdown = document.getElementById('episode_dropdown');
 
 // ###### Functions ######
-function onFavoritesTabHandler(tabIndex=1) {
-    listFavorites();
-    changeTab(tabIndex);
-}
-
-function changeTab(tabIndex) {
-    var tabs = document.getElementsByClassName('tab');
-    var content = document.getElementsByClassName('content');
-
-    for (var i = 0; i < tabs.length; i++) {
-        tabs[i].classList.remove('active');
-        content[i].classList.add('hidden');
-        //content[i].style.display = 'none';
+// #### Setup ####
+// Function to read the JSON file
+function readJSONFile(file, callback) {
+    var rawFile = new XMLHttpRequest();
+    rawFile.overrideMimeType("application/json");
+    rawFile.open("GET", file, true);
+    rawFile.onreadystatechange = function() {
+        if (rawFile.readyState === 4 && rawFile.status == "200") {
+            callback(rawFile.responseText);
+        }
     }
-
-    tabs[tabIndex].classList.add('active');
-    content[tabIndex].classList.remove('hidden');
-    //content[tabIndex].style.display = 'block';
+    rawFile.send(null);
 }
-
+// Function to display the JSON data
+function displayJSONData(data) {
+    jsonData = JSON.parse(data);
+    console.log('JSON data loaded')
+    //outputElement.textContent = JSON.stringify(jsonData, null, 4);
+}
 function createDropdown() {
     // create dropdown with all episodes
     for (var i = 0; i < jsonData.length; i++) {
@@ -41,25 +40,28 @@ function createDropdown() {
     });
 };
 
-// Function to read the JSON file
-function readJSONFile(file, callback) {
-    var rawFile = new XMLHttpRequest();
-    rawFile.overrideMimeType("application/json");
-    rawFile.open("GET", file, true);
-    rawFile.onreadystatechange = function() {
-        if (rawFile.readyState === 4 && rawFile.status == "200") {
-            callback(rawFile.responseText);
-        }
+// #### Change Tab ####
+function changeTab(tabIndex) {
+    var tabs = document.getElementsByClassName('tab');
+    var content = document.getElementsByClassName('content');
+
+    for (var i = 0; i < tabs.length; i++) {
+        tabs[i].classList.remove('active');
+        content[i].classList.add('hidden');
+        //content[i].style.display = 'none';
     }
-    rawFile.send(null);
+
+    tabs[tabIndex].classList.add('active');
+    content[tabIndex].classList.remove('hidden');
+    //content[tabIndex].style.display = 'block';
+}
+function onFavoritesTabHandler(tabIndex=1) {
+    listFavorites();
+    changeTab(tabIndex);
 }
 
-// Function to display the JSON data
-function displayJSONData(data) {
-    jsonData = JSON.parse(data);
-    console.log('JSON data loaded')
-    //outputElement.textContent = JSON.stringify(jsonData, null, 4);
-}
+
+
 
 // Function to pick a random entry from the JSON data
 function pickRandomEntry() {
@@ -281,7 +283,9 @@ function favEpisodeContainerHandler(container) {
     var episodeNumber = container.getAttribute('episodeNumber');
     // search for episode with episodeNumber in jsonData
     var episode = jsonData.find(episode => episode['episode_number'] == episodeNumber);
+    var episodeIndex = jsonData.indexOf(episode);
 
+    document.getElementById('episode_dropdown').value = episodeIndex;  
     setEpisodeContainer('episodeContainer', episode);
     changeTab(0);
 }
