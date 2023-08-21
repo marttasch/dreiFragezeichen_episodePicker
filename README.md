@@ -1,11 +1,28 @@
 # dieDreiFragezeichen_EpisodePicker
-This Repository contains a Python Script to scrape all Episode from dreifragezeichen.de and Webpage to pick a random episode and open with streaming provider.
+This is a little Project to make it easier to pick a Episode of the German Hörspielserie "Die drei Fragezeichen" and open it on the Streaming Provider of your choice, because it can be hard to quickly pick on of the 200+ Episodes on different Streaming Providers (Spotify, Deezer, Amazon Music, Apple Music, YouTube Music, ...).
+
+Therefore I created a little Webpage, that picks a random Episode and lets you open it on the Streaming Provider of your choice. You can also favorite Episodes.
+
+## Features
+- Pick a random Episode
+- Open the Episode on the Streaming Provider of your choice
+- Favorite Episodes
+- Install as PWA and use it offline
+
+
+## Webpage
+The Webpage is hosted on GitHub Pages and can be found here: 
+https://ddf.taschcloud.de
+
+It is a simple HTML Page with some JavaScript and CSS. The JavaScript is used to load the JSON File with the Episodes and to display the Episodes on the Page. The page is responsive and should work on all devices, but it is not optimized for mobile devices. Also the page can be installed as a PWA (Progressive Web App) and can be used offline.
+
+All assets are loaded from the GitHub Repository, so there are no external dependencies. There are no Cookies or other tracking methods used on the page.
 
 ## Webscraping
 The Webscraping is done with the Python Library BeautifulSoup4. The Script will scrape all Episodes from the Website `https://dreifragezeichen.de/produktwelt/hoerspiele` and save them in a JSON File, wich will be used by the Webpage.
 - You can use the Script `webscrape_ddf.py` to update the JSON File.
- - The Jupyter Notebook `webscrape_ddf.ipynb` contains the same Code as the Script, but can be used in a more interactive way and also offers to download all Images from the CDN to be used locally on the Webpage, wich is a more privacy friendly way.
+- The Jupyter Notebook `webscrape_ddf.ipynb` contains the same Code as the Script, but can be used in a more interactive way.
 
-## Webpage
-The Webpage is a simple HTML Page with a little bit of CSS and JavaScript. It uses the JSON File to pick a random Episode and open the Episode on the Streaming Provider of your choice. 
-The Webpage is hosted on GitHub Pages and can be found here: https://ddf.taschcloud.de/
+The JSON File for the hosted Webpage is not being updated automatically. If you want to update the JSON File, you have to do it manually. 
+
+
