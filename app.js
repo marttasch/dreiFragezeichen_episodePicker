@@ -100,11 +100,15 @@ function getHTMLOutput(randomEntry){
             link.href = value;
             link.target = '_blank';
             if (key == 'horspielplayer') {
-                link.innerHTML = '<i class="link-icon fa-solid fa-circle-play"></i>';
+                link.innerHTML = '<iconify-icon icon="mdi:play-circle-outline"></iconify-icon>'
+                //link.innerHTML = '<i class="link-icon fa-solid fa-circle-play"></i>';
                 link.innerHTML += '<p class="link-name">Hörspielplayer</p>' ;
             } else {
-                link.innerHTML = '<i class="link-icon fa-brands fa-' + key.toLowerCase() + '"></i>';
-                link.innerHTML += '<p class="link-name">' + key + '</p>' ;
+                // make capital letter uppercase
+                keyCapital = key.charAt(0).toUpperCase() + key.slice(1);
+
+                link.innerHTML = '<iconify-icon icon="fa-brands:' + key.toLowerCase() + '"></iconify-icon>';
+                link.innerHTML += '<p class="link-name">' + keyCapital + '</p>' ;
             }
             linkItem.appendChild(link);
             linkList.appendChild(linkItem);
@@ -237,6 +241,10 @@ function listFavorites() {
         favorites = [];
     }
     if (favorites.length > 0) {
+        // sort favorites by episode number
+        favorites.sort(function(a, b){return a-b});
+
+        // create container for each favorite
         for (var i = 0; i < favorites.length; i++) {
             var episodeNumber = favorites[i]
             // search for episode with episodeNumber in jsonData
