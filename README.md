@@ -12,9 +12,9 @@ Therefore I created a little Webpage, that picks a random Episode and lets you o
 
 ## Webpage
 The Webpage is hosted on GitHub Pages and can be found here: 
-https://ddf.taschcloud.de
+https://ddf.martintasch.de
 
-It is a simple HTML Page with some JavaScript and CSS. The JavaScript is used to load the JSON File with the Episodes and to display the Episodes on the Page. The page is responsive and should work on all devices, but it is not optimized for mobile devices. Also the page can be installed as a PWA (Progressive Web App) and can be used offline.
+It is a simple HTML Page with some JavaScript and CSS. The JavaScript is used to load the JSON File with the Episodes and to display the Episodes on the Page. The page is responsive and should work on all devices, but it is optimized for mobile devices. Also the page can be installed as a PWA (Progressive Web App) and can be used offline.
 
 All assets are loaded from the GitHub Repository, so there are no external dependencies. There are no Cookies or other tracking methods used on the page.
 
@@ -23,6 +23,6 @@ The Webscraping is done with the Python Library BeautifulSoup4. The Script will 
 - You can use the Script `webscrape_ddf.py` to update the JSON File.
 - The Jupyter Notebook `webscrape_ddf.ipynb` contains the same Code as the Script, but can be used in a more interactive way.
 
-The JSON File for the hosted Webpage is not being updated automatically. If you want to update the JSON File, you have to do it manually. 
+The JSON File for the hosted Webpage is not being updated automatically. If you want to update the JSON File, you have to run the Script manually.
 
 
