@@ -33,14 +33,14 @@
             <!--- Tabs --->
             <div class="tabs">
                 <div class="tab active" onclick="changeTab(0)">
-                    <span>
-                        <iconify-icon icon="fa-solid:dice" style="color: white;"></iconify-icon><p>Random Episode</p>
+                    <span class="tabButtonContent">
+                        <iconify-icon icon="fa-solid:dice" style="color: white;"></iconify-icon><p>Zufallsfolge</p>
                     </span>
                     
                 </div>
                 <div class="tab" onclick="onFavoritesTabHandler(1)">
                     <span>
-                        <iconify-icon icon="ri:hearts-fill" style="color: white;"></iconify-icon><p>Favorites</p>
+                        <iconify-icon icon="ri:hearts-fill" style="color: white;"></iconify-icon><p>Favoriten</p>
                     </span>
                 </div>
             </div>
@@ -50,16 +50,19 @@
             <div class="content show" id="tab1_content">
                 <div id="episode_selection">
                     <select name="dropdown" id="episode_dropdown"></select>
-                    <Button onclick="shuffleButtonHandler()" id="pickRandom">random episode <iconify-icon icon="fa-solid:dice" style="color: white;"></iconify-icon></Button>
+                    <Button onclick="shuffleButtonHandler()" id="pickRandom">Zufallsfolge <iconify-icon icon="fa-solid:dice" style="color: white;"></iconify-icon></Button>
                     <Button onclick="shuffleButtonHandler()" id="pickRandomFloating"><iconify-icon icon="fa-solid:dice" style="color: white;"></iconify-icon></Button>
                 </div>
                 <div class="episodeContainer" id="episodeContainer"></div>
                 <div class="episodeContainer" id="episodeContainerTransition"></div>
             </div>
 
-            <!--- Tab 2 --->
+            <!--- Tab 2 - favorites --->
             <div class="content hidden" id="tab2_conent">
-                <h2>Favorites</h2>
+                <div id="favoritesHeader">
+                    <iconify-icon icon="solar:heart-shine-bold-duotone"></iconify-icon>
+                    <h2>Favoriten</h2>
+                </div>
                 <div id="favoritesContainer"></div>
             </div>
 

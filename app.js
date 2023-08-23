@@ -267,7 +267,15 @@ function listFavorites() {
             favoritesContainer.appendChild(container);
         }
     } else {
-        favoritesContainer.innerHTML = '<p>Keine Favoriten vorhanden.</p>';
+        // HTML output if no favorites available
+        favoritesContainer.innerHTML = `
+            <div class="noFavorites">
+                <span>
+                    <p>Keine Favoriten vorhanden.</p> <br>
+                    <p>Markiere deine Lieblingsfolgen mit einem Klick auf das Herz.</p>
+                </span>
+            </div>
+            `
         console.log('No favorites available.');
     }
 }
