@@ -5,26 +5,25 @@ var jsonData; // Variable to store the JSON data
 let dropdown = document.getElementById('episode_dropdown');
 
 // ###### Functions ######
-function onFavoritesTabHandler(tabIndex=1) {
-    listFavorites();
-    changeTab(tabIndex);
-}
-
-function changeTab(tabIndex) {
-    var tabs = document.getElementsByClassName('tab');
-    var content = document.getElementsByClassName('content');
-
-    for (var i = 0; i < tabs.length; i++) {
-        tabs[i].classList.remove('active');
-        content[i].classList.add('hidden');
-        //content[i].style.display = 'none';
+// #### Setup ####
+// Function to read the JSON file
+function readJSONFile(file, callback) {
+    var rawFile = new XMLHttpRequest();
+    rawFile.overrideMimeType("application/json");
+    rawFile.open("GET", file, true);
+    rawFile.onreadystatechange = function() {
+        if (rawFile.readyState === 4 && rawFile.status == "200") {
+            callback(rawFile.responseText);
+        }
     }
-
-    tabs[tabIndex].classList.add('active');
-    content[tabIndex].classList.remove('hidden');
-    //content[tabIndex].style.display = 'block';
+    rawFile.send(null);
 }
-
+// Function to display the JSON data
+function displayJSONData(data) {
+    jsonData = JSON.parse(data);
+    console.log('JSON data loaded')
+    //outputElement.textContent = JSON.stringify(jsonData, null, 4);
+}
 function createDropdown() {
     // create dropdown with all episodes
     for (var i = 0; i < jsonData.length; i++) {
@@ -41,26 +40,27 @@ function createDropdown() {
     });
 };
 
-// Function to read the JSON file
-function readJSONFile(file, callback) {
-    var rawFile = new XMLHttpRequest();
-    rawFile.overrideMimeType("application/json");
-    rawFile.open("GET", file, true);
-    rawFile.onreadystatechange = function() {
-        if (rawFile.readyState === 4 && rawFile.status == "200") {
-            callback(rawFile.responseText);
-        }
+// #### Change Tab ####
+function changeTab(tabIndex) {
+    var tabs = document.getElementsByClassName('tab');
+    var content = document.getElementsByClassName('content');
+
+    for (var i = 0; i < tabs.length; i++) {
+        tabs[i].classList.remove('active');
+        content[i].classList.add('hidden');
+        //content[i].style.display = 'none';
     }
-    rawFile.send(null);
+
+    tabs[tabIndex].classList.add('active');
+    content[tabIndex].classList.remove('hidden');
+    //content[tabIndex].style.display = 'block';
+}
+function onFavoritesTabHandler(tabIndex=1) {
+    listFavorites();
+    changeTab(tabIndex);
 }
 
-// Function to display the JSON data
-function displayJSONData(data) {
-    jsonData = JSON.parse(data);
-    console.log('JSON data loaded')
-    //outputElement.textContent = JSON.stringify(jsonData, null, 4);
-}
-
+// #### Random Episode ####
 // Function to pick a random entry from the JSON data
 function pickRandomEntry() {
     var outputElement = document.getElementById('episodeContainer');
@@ -100,11 +100,15 @@ function getHTMLOutput(randomEntry){
             link.href = value;
             link.target = '_blank';
             if (key == 'horspielplayer') {
-                link.innerHTML = '<i class="link-icon fa-solid fa-circle-play"></i>';
+                link.innerHTML = '<iconify-icon icon="mdi:play-circle-outline"></iconify-icon>'
+                //link.innerHTML = '<i class="link-icon fa-solid fa-circle-play"></i>';
                 link.innerHTML += '<p class="link-name">Hörspielplayer</p>' ;
             } else {
-                link.innerHTML = '<i class="link-icon fa-brands fa-' + key.toLowerCase() + '"></i>';
-                link.innerHTML += '<p class="link-name">' + key + '</p>' ;
+                // make capital letter uppercase
+                keyCapital = key.charAt(0).toUpperCase() + key.slice(1);
+
+                link.innerHTML = '<iconify-icon icon="fa-brands:' + key.toLowerCase() + '"></iconify-icon>';
+                link.innerHTML += '<p class="link-name">' + keyCapital + '</p>' ;
             }
             linkItem.appendChild(link);
             linkList.appendChild(linkItem);
@@ -143,44 +147,7 @@ function getHTMLOutput(randomEntry){
     `;
     return htmlOutput;
 }
-
-
-function markFavoriteHandler(){
-    favorites = JSON.parse(localStorage.getItem('favorites'));
-    if (!favorites) {
-        favorites = [];
-    }
-    //get episode index
-    var episodeNumber = document.getElementById('episodeContainer').getAttribute('episodeNumber');
-
-    // if marked as favorite, unmark it
-    if (favorites.includes(episodeNumber)) {
-        // -- unmark favorite
-        // remove item from favorites
-        favorites.splice(favorites.indexOf(episodeNumber), 1);
-        // save favorites to local storage
-        localStorage.setItem('favorites', JSON.stringify(favorites));
-        // change icon
-        document.querySelector('.markFavorite').innerHTML = '<iconify-icon icon="mdi:heart-outline"></iconify-icon>';
-    } else {
-        // -- mark favorite
-        // add item to favorites
-        favorites.push(episodeNumber);
-        // remove duplicates
-        favorites = [...new Set(favorites)];
-        // save favorites to local storage
-        localStorage.setItem('favorites', JSON.stringify(favorites));
-        // change icon
-        document.querySelector('.markFavorite').innerHTML = '<iconify-icon icon="mdi:heart"></iconify-icon>';
-    }
-}
-
-function readMoreHandler(){
-    document.querySelector('.short_description').style.display = 'none';
-    document.querySelector('.long_description').style.display = 'block';
-    document.getElementById('btn-readMore').style.display = 'none';
-}
-
+// fuction to set an episode container with entry
 function setEpisodeContainer(containerID, randomEntry){
     var htmlOutput = getHTMLOutput(randomEntry)
     var container = document.getElementById(containerID);
@@ -193,6 +160,7 @@ function setEpisodeContainer(containerID, randomEntry){
     container.setAttribute('episodeTitle', randomEntry['episode_title']);
 }
 
+// function to display an episode, handles transition
 function displayEpisode(randomEntry) {
     var episodeContainer = document.getElementById('episodeContainer');
     var episodeContainerTransiton = document.getElementById('episodeContainerTransition');  
@@ -222,12 +190,43 @@ function displayEpisode(randomEntry) {
     }, 900);
 }
 
+// --- Button Handler ---
 function shuffleButtonHandler() {   
     var randomEntry = pickRandomEntry();
     displayEpisode(randomEntry);
 }
+function readMoreHandler(){
+    document.querySelector('.short_description').style.display = 'none';
+    document.querySelector('.long_description').style.display = 'block';
+    document.getElementById('btn-readMore').style.display = 'none';
+}
 
-// -- favorites --
+
+// #### Favorites ####
+function markFavoriteHandler(){
+    favorites = JSON.parse(localStorage.getItem('favorites'));
+    if (!favorites) {
+        favorites = [];
+    }
+    //get episode index
+    var episodeNumber = document.getElementById('episodeContainer').getAttribute('episodeNumber');
+
+    // if marked as favorite, unmark it
+    if (favorites.includes(episodeNumber)) {
+        // -- unmark favorite
+        favorites.splice(favorites.indexOf(episodeNumber), 1);   // remove item from favorites
+        localStorage.setItem('favorites', JSON.stringify(favorites));   // save favorites to local storage
+        document.querySelector('.markFavorite').innerHTML = '<iconify-icon icon="mdi:heart-outline"></iconify-icon>';   // change icon
+    } else {
+        // -- mark favorite
+        favorites.push(episodeNumber);   // add item to favorites
+        favorites = [...new Set(favorites)];   // remove duplicates
+        localStorage.setItem('favorites', JSON.stringify(favorites));    // save favorites to local storage
+        document.querySelector('.markFavorite').innerHTML = '<iconify-icon icon="mdi:heart"></iconify-icon>';   // change icon
+    }
+}
+
+// fuction to display all favorites 
 function listFavorites() {
     favoritesContainer = document.getElementById('favoritesContainer');
     favoritesContainer.innerHTML = '';
@@ -237,6 +236,10 @@ function listFavorites() {
         favorites = [];
     }
     if (favorites.length > 0) {
+        // sort favorites by episode number
+        favorites.sort(function(a, b){return a-b});
+
+        // create container for each favorite
         for (var i = 0; i < favorites.length; i++) {
             var episodeNumber = favorites[i]
             // search for episode with episodeNumber in jsonData
@@ -264,16 +267,27 @@ function listFavorites() {
             favoritesContainer.appendChild(container);
         }
     } else {
-        favoritesContainer.innerHTML = '<p>Keine Favoriten vorhanden.</p>';
+        // HTML output if no favorites available
+        favoritesContainer.innerHTML = `
+            <div class="noFavorites">
+                <span>
+                    <p>Keine Favoriten vorhanden.</p> <br>
+                    <p>Markiere deine Lieblingsfolgen mit einem Klick auf das Herz.</p>
+                </span>
+            </div>
+            `
         console.log('No favorites available.');
     }
 }
 
+// function to handle click on favorite episode container
 function favEpisodeContainerHandler(container) {
     var episodeNumber = container.getAttribute('episodeNumber');
     // search for episode with episodeNumber in jsonData
     var episode = jsonData.find(episode => episode['episode_number'] == episodeNumber);
+    var episodeIndex = jsonData.indexOf(episode);
 
+    document.getElementById('episode_dropdown').value = episodeIndex;  
     setEpisodeContainer('episodeContainer', episode);
     changeTab(0);
 }
