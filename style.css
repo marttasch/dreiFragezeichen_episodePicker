@@ -20,6 +20,10 @@ body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
+    transition: .5s ease;
+}
+body.kidsMode {
+    background-color: #fff;
 }
 
 .container {
@@ -94,7 +98,88 @@ body {
 #installButton:hover {
     background-color: #45a049;
 }
+.ddfHeader{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+.ddfHeader img{
+    margin-right: 0px;
+}
+.flipswitch {
+    position: relative;
+    width: 100px;
+  }
+.flipswitch input[type=checkbox] {
+    display: none;
+}
 
+.flipswitch-label {
+    display: block;
+    overflow: hidden;
+    cursor: pointer;
+    border: 1px solid #999999;
+    border-radius: 50px;
+}
+
+.flipswitch-inner {
+    width: 200%;
+    margin-left: -100%;
+    transition: margin 0.3s ease-in 0s;
+}
+
+.flipswitch-inner:before,
+.flipswitch-inner:after {
+    float: left;
+    width: 50%;
+    height: 30px;
+    padding: 0;
+    line-height: 30px;
+    font-size: 16px;
+    color: white;
+    font-family: Trebuchet, Arial, sans-serif;
+    font-weight: bold;
+    box-sizing: border-box;
+}
+
+.flipswitch-inner:before {
+    content: "KIDS";
+    padding-left: 18px;
+    background-color: #437A99;
+    color: #FFFFFF;
+}
+
+.flipswitch-inner:after {
+    content: "NORMAL";
+    padding-right: 5px;
+    font-size: 14px;
+    background-color: #FFFFFF;
+    color: #437A99;
+    text-align: right;
+}
+
+.flipswitch-switch {
+    width: 35px;
+    margin: -2.5px;
+    background: #FFFFFF;
+    border: 1px solid #999999;
+    border-radius: 50px;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 67px;
+    transition: all 0.3s ease-in 0s;
+}
+
+.flipswitch-cb:checked+.flipswitch-label .flipswitch-inner {
+    margin-left: 0;
+}
+
+.flipswitch-cb:checked+.flipswitch-label .flipswitch-switch {
+    right: 0;
+}
+  
 /* Tabs Styles */
 .tabs {
     display: flex;

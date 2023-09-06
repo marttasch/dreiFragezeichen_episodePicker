@@ -4,6 +4,13 @@ var rootPath = window.location.pathname.split('/').slice(0, -1).join('/');
 var jsonData; // Variable to store the JSON data
 let dropdown = document.getElementById('episode_dropdown');
 
+var jsonFilePath = "episode_list.json";   // Specify the path to your JSON file
+var jsonFilePathKids = "episode_list_kids.json";   // Specify the path to your JSON file
+var imageFolder = "assets/episode_images/";   // Specify the path to your JSON file
+var imageFolderKids = "assets/episode_images_kids/";   // Specify the path to your JSON file
+
+var kidsMode = false;
+
 // ###### Functions ######
 // #### Setup ####
 // Function to read the JSON file
@@ -25,6 +32,9 @@ function displayJSONData(data) {
     //outputElement.textContent = JSON.stringify(jsonData, null, 4);
 }
 function createDropdown() {
+    // clear dropdown
+    dropdown.innerHTML = '';
+
     // create dropdown with all episodes
     for (var i = 0; i < jsonData.length; i++) {
         var option = document.createElement('option');
@@ -76,7 +86,11 @@ function pickRandomEntry() {
         if (rootPath && rootPath.slice(-1) != '/') {
             rootPath = rootPath + '/';
         }
-        randomEntry['episode_image'] = rootPath + 'assets/episode_images/' + imageName;      
+        if (kidsMode) {
+            randomEntry['episode_image'] = rootPath + imageFolderKids + imageName;      
+        } else {
+            randomEntry['episode_image'] = rootPath + imageFolder + imageName;      
+        }
     } else {
         outputElement.textContent = "No Episode data available.";
         console.log('No JSON data available. Cant pick random entry.')
@@ -292,19 +306,7 @@ function favEpisodeContainerHandler(container) {
     changeTab(0);
 }
 
-// ###### Main #####
-// #################
-// -- variables --
-var episodeContainer = document.getElementById('episodeContainer');
-var episodeContainerTransiton = document.getElementById('episodeContainerTransition');  
-
-var jsonFilePath = "episode_list.json";   // Specify the path to your JSON file
-
-// Read the JSON file
-readJSONFile(jsonFilePath, displayJSONData);
-
-// wait for JSON data to be loaded, break if not loaded after 5 seconds
-setTimeout(function(){
+function loadEpisodes() {
     createDropdown();
     listFavorites();
     // Pick a random entry from the JSON data and display it
@@ -318,18 +320,31 @@ setTimeout(function(){
     setEpisodeContainer('episodeContainerTransition', randomEntry);
     episodeContainerTransiton.style.opacity = 0;
 
+}
 
-    // install service worker
-    if ('serviceWorker' in navigator) {
-        navigator.serviceWorker.register('/serviceWorker.js')
-            .then((reg) => console.log('service worker registered', reg))
-            .catch((err) => console.log('service worker not registered', err));
-    } else {
-        console.log('service worker not supported');
-    }
+// ###### Main #####
+// #################
+// -- variables --
+var episodeContainer = document.getElementById('episodeContainer');
+var episodeContainerTransiton = document.getElementById('episodeContainerTransition');  
 
+// Read the JSON file
+readJSONFile(jsonFilePath, displayJSONData);
 
+// wait for JSON data to be loaded, break if not loaded after 5 seconds
+setTimeout(function(){
+    loadEpisodes();
 }, 300);
+
+
+// install service worker
+if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('/serviceWorker.js')
+        .then((reg) => console.log('service worker registered', reg))
+        .catch((err) => console.log('service worker not registered', err));
+} else {
+    console.log('service worker not supported');
+}
 
 // ###### PWA ######
 // if Browser is firefox, show message to use chrome
@@ -385,6 +400,32 @@ if ('onbeforeinstallprompt' in window) {
 // set headerImage src to root path/assets/die-drei-fragezeichen-logo.png
 var headerImage = document.getElementById('headerImage');
 headerImage.src = rootPath + '/assets/die-drei-fragezeichen-logo.png';
+
+
+// ##### Flip Switch #####
+// add event listener to flip switch
+const flipswitch = document.getElementById('fs');
+const body = document.body;
+
+flipswitch.addEventListener('change', function() {
+    if (this.checked) {
+        body.classList.add('kidsMode');
+        kidsMode = true;
+        
+        readJSONFile(jsonFilePathKids, displayJSONData);
+        setTimeout(function(){
+            loadEpisodes();
+        }, 300);
+    } else {
+        body.classList.remove('kidsMode');
+        kidsMode = false;
+
+        readJSONFile(jsonFilePath, displayJSONData);
+        setTimeout(function(){
+            loadEpisodes();
+        }, 300);
+    }
+});
 
 
 
