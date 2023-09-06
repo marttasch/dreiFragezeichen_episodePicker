@@ -56,17 +56,22 @@ body {
 #header {
     padding: 20px 0px;
 }
-#installButtonWrapper {
-    display: none;
+.headerBanner{
     position: relative;
     top: 0;
     left: 0;
     padding: 10px;
-    margin: 0 0 20px 0;
+    margin:  0 auto 20px auto;
     z-index: 1000;
-    width: 100%;
+    width: 90%;
     text-align: center;
     background-color: var(--accent-color);
+}
+#installButtonWrapper {
+    display: none;
+}
+#firefoxMessage {
+    display: none;
 }
 
 #installButton {
@@ -404,7 +409,7 @@ body {
     text-align: center;
     margin: 0px auto 0px auto;
     transition: 0.3s ease;
-
+    
     animation: popup 0.5s ease-in-out alternate;
 }
 @keyframes popup {

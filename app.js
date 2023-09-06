@@ -331,6 +331,11 @@ setTimeout(function(){
 
 }, 300);
 
+// ###### PWA ######
+// if Browser is firefox, show message to use chrome
+if (navigator.userAgent.toLowerCase().indexOf('firefox') > -1) {
+    document.getElementById('firefoxMessage').style.display = 'block';
+}
 
 // Check if the PWA install prompt event is supported in the current browser
 if ('onbeforeinstallprompt' in window) {
