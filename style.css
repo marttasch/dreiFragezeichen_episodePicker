@@ -103,9 +103,12 @@ body.kidsMode {
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
+    flex-wrap: wrap;
+    margin: 0 20px;
 }
 .ddfHeader img{
     margin-right: 0px;
+    max-height: 60px;
 }
 .flipswitch {
     position: relative;
@@ -184,7 +187,6 @@ body.kidsMode {
 .tabs {
     display: flex;
     justify-content: space-between;
-    margin-bottom: 20px;
 }
 
 .tab {
@@ -298,21 +300,26 @@ body.kidsMode {
 #pickRandomFloating:hover {
     background-color: var(--accent-color-hover);
 }
+.episodeContainerWrapper{
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    max-width: var(--max-width);
+    margin: 10px 15px 200px 0px;
 
+}
 .episodeContainer{
+    padding: 20px 15px 80px;
+    
     color: var(--text-color);
     font-size: 1.1em;
     text-align: center;
     background-color: rgba(0, 0, 0, 0.85);
-    padding: 20px 15px 80px;
-    margin-top: 10px;
-    margin-bottom: 200px;
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
     background-blend-mode: overlay;
-    position: absolute;
-    max-width: var(--max-width)
 }
 #episodeContainer{
     opacity: 0;
@@ -561,7 +568,9 @@ body.kidsMode {
     /* CSS styles for mobile phones and smaller screens */
     .container {
         width: 100%;
-        padding: 15px;
+    }
+    .ddfHeader img{
+        max-height: 45px;
     }
     .tab {
         font-size: 1.0em;
