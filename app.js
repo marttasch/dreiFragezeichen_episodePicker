@@ -4,6 +4,13 @@ var rootPath = window.location.pathname.split('/').slice(0, -1).join('/');
 var jsonData; // Variable to store the JSON data
 let dropdown = document.getElementById('episode_dropdown');
 
+var jsonFilePath = "episode_list.json";   // Specify the path to your JSON file
+var jsonFilePathKids = "episode_list_kids.json";   // Specify the path to your JSON file
+var imageFolder = "assets/episode_images/";   // Specify the path to your JSON file
+var imageFolderKids = "assets/episode_images_kids/";   // Specify the path to your JSON file
+
+var kidsMode = false;
+
 // ###### Functions ######
 // #### Setup ####
 // Function to read the JSON file
@@ -25,6 +32,9 @@ function displayJSONData(data) {
     //outputElement.textContent = JSON.stringify(jsonData, null, 4);
 }
 function createDropdown() {
+    // clear dropdown
+    dropdown.innerHTML = '';
+
     // create dropdown with all episodes
     for (var i = 0; i < jsonData.length; i++) {
         var option = document.createElement('option');
@@ -76,7 +86,11 @@ function pickRandomEntry() {
         if (rootPath && rootPath.slice(-1) != '/') {
             rootPath = rootPath + '/';
         }
-        randomEntry['episode_image'] = rootPath + 'assets/episode_images/' + imageName;      
+        if (kidsMode) {
+            randomEntry['episode_image'] = rootPath + imageFolderKids + imageName;      
+        } else {
+            randomEntry['episode_image'] = rootPath + imageFolder + imageName;      
+        }
     } else {
         outputElement.textContent = "No Episode data available.";
         console.log('No JSON data available. Cant pick random entry.')
@@ -116,7 +130,11 @@ function getHTMLOutput(randomEntry){
     };
 
     // if episode is in favorites, mark it
-    favorites = JSON.parse(localStorage.getItem('favorites'));
+    if (kidsMode) {
+        favorites = JSON.parse(localStorage.getItem('favoritesKids'));
+    } else { 
+        favorites = JSON.parse(localStorage.getItem('favorites'));
+    }
     if (!favorites) {
         favorites = [];
     }
@@ -141,8 +159,10 @@ function getHTMLOutput(randomEntry){
         <span class="markFavorite" onClick="markFavoriteHandler()" >${favoriteIcon}</span>
         <div class="episode_description short_description" ><p>${randomEntry['episode_description'].split(' ').slice(0, 25).join(' ') + ' [...]'}</p></div>
         <div class="episode_description long_description" ><p>${randomEntry['episode_description']}</p></div>
-        <button id="btn-readMore" class="btn" onClick="readMoreHandler()" ><iconify-icon icon="mingcute:more-3-line"></iconify-icon>mehr lesen</button>
-        <a href="${randomEntry['episode_Pagelink']}" target="blank" ><button id="btn-moreInfo" class="btn" ><iconify-icon icon="material-symbols:info-outline"></iconify-icon>Weitere Infos</Button></a>
+        <div class="episode_buttons">
+            <button id="btn-readMore" class="btn" onClick="readMoreHandler()" ><iconify-icon icon="mingcute:more-3-line"></iconify-icon>mehr lesen</button>
+            <a href="${randomEntry['episode_Pagelink']}" target="blank" ><button id="btn-moreInfo" class="btn" ><iconify-icon icon="material-symbols:info-outline"></iconify-icon>Weitere Infos</Button></a>
+        </div>
         ${linkList.outerHTML}
     `;
     return htmlOutput;
@@ -204,7 +224,14 @@ function readMoreHandler(){
 
 // #### Favorites ####
 function markFavoriteHandler(){
-    favorites = JSON.parse(localStorage.getItem('favorites'));
+    if (kidsMode) {
+        favorites = JSON.parse(localStorage.getItem('favoritesKids'));
+        favStorageName = 'favoritesKids';
+    } else {
+        favorites = JSON.parse(localStorage.getItem('favorites'));
+        favStorageName = 'favorites';
+    }
+
     if (!favorites) {
         favorites = [];
     }
@@ -215,13 +242,13 @@ function markFavoriteHandler(){
     if (favorites.includes(episodeNumber)) {
         // -- unmark favorite
         favorites.splice(favorites.indexOf(episodeNumber), 1);   // remove item from favorites
-        localStorage.setItem('favorites', JSON.stringify(favorites));   // save favorites to local storage
+        localStorage.setItem(favStorageName, JSON.stringify(favorites));   // save favorites to local storage
         document.querySelector('.markFavorite').innerHTML = '<iconify-icon icon="mdi:heart-outline"></iconify-icon>';   // change icon
     } else {
         // -- mark favorite
         favorites.push(episodeNumber);   // add item to favorites
         favorites = [...new Set(favorites)];   // remove duplicates
-        localStorage.setItem('favorites', JSON.stringify(favorites));    // save favorites to local storage
+        localStorage.setItem(favStorageName, JSON.stringify(favorites));    // save favorites to local storage
         document.querySelector('.markFavorite').innerHTML = '<iconify-icon icon="mdi:heart"></iconify-icon>';   // change icon
     }
 }
@@ -231,7 +258,11 @@ function listFavorites() {
     favoritesContainer = document.getElementById('favoritesContainer');
     favoritesContainer.innerHTML = '';
 
-    favorites = JSON.parse(localStorage.getItem('favorites'));
+    if (kidsMode) {
+        favorites = JSON.parse(localStorage.getItem('favoritesKids'));
+    } else {
+        favorites = JSON.parse(localStorage.getItem('favorites'));
+    }
     if (!favorites) {
         favorites = [];
     }
@@ -292,19 +323,7 @@ function favEpisodeContainerHandler(container) {
     changeTab(0);
 }
 
-// ###### Main #####
-// #################
-// -- variables --
-var episodeContainer = document.getElementById('episodeContainer');
-var episodeContainerTransiton = document.getElementById('episodeContainerTransition');  
-
-var jsonFilePath = "episode_list.json";   // Specify the path to your JSON file
-
-// Read the JSON file
-readJSONFile(jsonFilePath, displayJSONData);
-
-// wait for JSON data to be loaded, break if not loaded after 5 seconds
-setTimeout(function(){
+function loadEpisodes() {
     createDropdown();
     listFavorites();
     // Pick a random entry from the JSON data and display it
@@ -318,18 +337,31 @@ setTimeout(function(){
     setEpisodeContainer('episodeContainerTransition', randomEntry);
     episodeContainerTransiton.style.opacity = 0;
 
+}
 
-    // install service worker
-    if ('serviceWorker' in navigator) {
-        navigator.serviceWorker.register('/serviceWorker.js')
-            .then((reg) => console.log('service worker registered', reg))
-            .catch((err) => console.log('service worker not registered', err));
-    } else {
-        console.log('service worker not supported');
-    }
+// ###### Main #####
+// #################
+// -- variables --
+var episodeContainer = document.getElementById('episodeContainer');
+var episodeContainerTransiton = document.getElementById('episodeContainerTransition');  
 
+// Read the JSON file
+readJSONFile(jsonFilePath, displayJSONData);
 
+// wait for JSON data to be loaded, break if not loaded after 5 seconds
+setTimeout(function(){
+    loadEpisodes();
 }, 300);
+
+
+// install service worker
+if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('/serviceWorker.js')
+        .then((reg) => console.log('service worker registered', reg))
+        .catch((err) => console.log('service worker not registered', err));
+} else {
+    console.log('service worker not supported');
+}
 
 // ###### PWA ######
 // if Browser is firefox, show message to use chrome
@@ -381,10 +413,69 @@ if ('onbeforeinstallprompt' in window) {
     console.log('PWA installation is not possible');
 }
 
+function setHeaderImage() {
+    // set headerImage src to root path/assets/die-drei-fragezeichen-logo.png
+    var headerImage = document.getElementById('headerImageNormal');
+    var headerImageKids = document.getElementById('headerImageKids');
 
-// set headerImage src to root path/assets/die-drei-fragezeichen-logo.png
-var headerImage = document.getElementById('headerImage');
-headerImage.src = rootPath + '/assets/die-drei-fragezeichen-logo.png';
+    headerImage.style.backgroundImage = 'url(' + rootPath + '/assets/ddf_logo.png)';
+    headerImageKids.style.backgroundImage = 'url(' + rootPath + '/assets/ddf_kids_logo.png)';
+    if (kidsMode) {
+        headerImage.style.opacity = 0;
+        headerImageKids.style.opacity = 1;
+    } else {
+        headerImage.style.opacity = 1;
+        headerImageKids.style.opacity = 0;
+    }
+}
+
+setHeaderImage();
+
+// ##### Flip Switch #####
+window.addEventListener('load', function() {
+    // check flipswitch and set kidsMode
+    if (flipswitch.checked) {
+        body.classList.add('kidsMode');
+        kidsMode = true;
+        setHeaderImage();
+        // change css variables
+        document.documentElement.style.setProperty('--accent-color', '#0082d8');
+
+        readJSONFile(jsonFilePathKids, displayJSONData);
+        setTimeout(function(){
+            loadEpisodes();
+        }, 300);
+    }
+});
+// add event listener to flip switch
+const flipswitch = document.getElementById('fs');
+const body = document.body;
+
+flipswitch.addEventListener('change', function() {
+    if (this.checked) {
+        body.classList.add('kidsMode');
+        kidsMode = true;
+        setHeaderImage();
+        // change css variables
+        document.documentElement.style.setProperty('--accent-color', '#0082d8');
+        
+        readJSONFile(jsonFilePathKids, displayJSONData);
+        setTimeout(function(){
+            loadEpisodes();
+        }, 300);
+    } else {
+        body.classList.remove('kidsMode');
+        kidsMode = false;
+        setHeaderImage();
+        // change css variables
+        document.documentElement.style.setProperty('--accent-color', '#27374D');
+
+        readJSONFile(jsonFilePath, displayJSONData);
+        setTimeout(function(){
+            loadEpisodes();
+        }, 300);
+    }
+});
 
 
 

@@ -31,7 +31,17 @@
                 <div class="headerBanner" id="firefoxMessage">
                     <p>Für die beste Benutzererfahrung verwende bitte den <b>Chrome-Browser.</b></p>
                 </div>
-                <img id="headerImage" src="/assets/die-drei-fragezeichen-logo.png" alt="Die drei Fragezeichen" style="max-height: 60px; padding-bottom: 20px;;">
+                <div class="ddfHeader">
+                    <div class="headerImage" id="headerImageNormal"></div>
+                    <div class="headerImage" id="headerImageKids"></div>
+                    <div class="flipswitch">
+                        <input id="fs" class="flipswitch-cb" name="flipswitch" type="checkbox">
+                        <label for="fs" class="flipswitch-label">
+                            <div class="flipswitch-inner"></div>
+                            <div class="flipswitch-switch"></div>
+                        </label>
+                    </div>
+                </div>
             </div>
             <!--- Tabs --->
             <div class="tabs">
@@ -56,8 +66,12 @@
                     <Button onclick="shuffleButtonHandler()" id="pickRandom">Zufallsfolge <iconify-icon icon="fa-solid:dice" style="color: white;"></iconify-icon></Button>
                     <Button onclick="shuffleButtonHandler()" id="pickRandomFloating"><iconify-icon icon="fa-solid:dice" style="color: white;"></iconify-icon></Button>
                 </div>
-                <div class="episodeContainer" id="episodeContainer"></div>
-                <div class="episodeContainer" id="episodeContainerTransition"></div>
+                <div class="episodeContainerWrapper" id="episodeContainerWrapper">
+                    <div class="episodeContainer" id="episodeContainer"></div>
+                </div>
+                <div class="episodeContainerWrapper" id="episodeContainerWrapperTransition">
+                    <div class="episodeContainer" id="episodeContainerTransition"></div>
+                </div>
             </div>
 
             <!--- Tab 2 - favorites --->

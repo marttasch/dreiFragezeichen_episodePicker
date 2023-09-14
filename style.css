@@ -20,6 +20,7 @@ body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
+    transition: .5s ease;
 }
 
 .container {
@@ -94,12 +95,109 @@ body {
 #installButton:hover {
     background-color: #45a049;
 }
+.ddfHeader{
+    margin: 0 20px;
 
+    height: 100px;
+}
+.headerImage{
+    width: 100%;
+    height: 60px;
+    background-position: left;
+    background-repeat: no-repeat;
+    background-size: contain;
+
+    position: relative;
+    left: 0px;
+
+    transition: opacity 1s ease;
+}
+#headerImageKids{
+    height: 100px;
+    top: -60px;
+}
+.flipswitch {
+    position: relative;
+    top: -140px;
+    right: 0px;
+    width: 100px;
+    align-self: center;
+    margin: auto;
+    margin-right: 0px;
+  }
+.flipswitch input[type=checkbox] {
+    display: none;
+}
+
+.flipswitch-label {
+    display: block;
+    overflow: hidden;
+    cursor: pointer;
+    border: 1px solid #999999;
+    border-radius: 50px;
+}
+
+.flipswitch-inner {
+    width: 200%;
+    margin-left: -100%;
+    transition: margin 0.3s ease-in 0s;
+}
+
+.flipswitch-inner:before,
+.flipswitch-inner:after {
+    float: left;
+    width: 50%;
+    height: 30px;
+    padding: 0;
+    line-height: 30px;
+    font-size: 16px;
+    color: white;
+    font-family: Trebuchet, Arial, sans-serif;
+    font-weight: bold;
+    box-sizing: border-box;
+}
+
+.flipswitch-inner:before {
+    content: "KIDS";
+    padding-left: 18px;
+    background-color: var(--accent-color);
+    color: #FFFFFF;
+}
+
+.flipswitch-inner:after {
+    content: "NORMAL";
+    padding-right: 5px;
+    font-size: 14px;
+    background-color: #FFFFFF;
+    color: var(--accent-color);
+    text-align: right;
+}
+
+.flipswitch-switch {
+    width: 35px;
+    margin: -2.5px;
+    background: #FFFFFF;
+    border: 1px solid #999999;
+    border-radius: 50px;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 67px;
+    transition: all 0.3s ease-in 0s;
+}
+
+.flipswitch-cb:checked+.flipswitch-label .flipswitch-inner {
+    margin-left: 0;
+}
+
+.flipswitch-cb:checked+.flipswitch-label .flipswitch-switch {
+    right: 0;
+}
+  
 /* Tabs Styles */
 .tabs {
     display: flex;
     justify-content: space-between;
-    margin-bottom: 20px;
 }
 
 .tab {
@@ -132,6 +230,7 @@ body {
 }
 .content {
     padding: 20px;
+    min-height: 90vh;
     background-color: var(--secondary-background-color);
     text-align: center;
 }
@@ -213,21 +312,26 @@ body {
 #pickRandomFloating:hover {
     background-color: var(--accent-color-hover);
 }
+.episodeContainerWrapper{
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    max-width: var(--max-width);
+    margin: 10px 15px 200px 0px;
 
+}
 .episodeContainer{
+    padding: 20px 15px 80px;
+    
     color: var(--text-color);
     font-size: 1.1em;
     text-align: center;
     background-color: rgba(0, 0, 0, 0.85);
-    padding: 20px 15px 80px;
-    margin-top: 10px;
-    margin-bottom: 200px;
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
     background-blend-mode: overlay;
-    position: absolute;
-    max-width: var(--max-width)
 }
 #episodeContainer{
     opacity: 0;
@@ -282,13 +386,18 @@ body {
     left: 125px;
     color: var(--text-color);
     font-size: 2.5rem;
+    line-height: 1rem;
     cursor: pointer;
     transition: 0.3s ease;
 }
 .markFavorite iconify-icon{
     background-color: var(--accent-color);
-    padding: 5px 3px 1px 4px;
     border-radius: 50%;
+    padding: 6px 5px 4px 5px;
+    min-height: 40px;
+    min-width: 40px;
+
+    transition: 0.3s ease;
 }
 .episode_description {
     position: relative;
@@ -297,7 +406,7 @@ body {
     text-align: center;
     overflow: hidden;
     max-width: 600px;
-    margin: 10px auto;
+    margin: 10px auto 0px auto;
     transition: max-height 0.5s ease;
 }
 .short_description {
@@ -306,15 +415,23 @@ body {
 .long_description {
     display: none;
 }
+.episode_buttons {
+    position: relative;
+    top: -30px;
+}
+.episode_buttons button{
+    margin-top: 10px;
+}
 
 .link_list {
+    position: relative;
     flex: 1;
     flex-direction: row;
     display: flex;
     justify-content: center;
     align-items: center;    
     flex-wrap: wrap;
-    margin: 20px auto 30px auto;
+    margin: 0px auto 30px auto;
     max-width: 600px;
 }
 .link_item {
@@ -476,7 +593,12 @@ body {
     /* CSS styles for mobile phones and smaller screens */
     .container {
         width: 100%;
-        padding: 15px;
+    }
+    .ddfHeader{
+        height: 130px;
+    }
+    .flipswitch{
+        top: -70px;
     }
     .tab {
         font-size: 1.0em;
