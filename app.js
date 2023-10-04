@@ -183,26 +183,26 @@ function setEpisodeContainer(containerID, randomEntry){
 // function to display an episode, handles transition
 function displayEpisode(randomEntry) {
     var episodeContainer = document.getElementById('episodeContainer');
-    var episodeContainerTransiton = document.getElementById('episodeContainerTransition');  
-    
-    var htmlOutput = getHTMLOutput(randomEntry)
+    var episodeContainerTransition = document.getElementById('episodeContainerTransition');  
 
     // fade in new episode
-    episodeContainerTransiton.style.opacity = 1;
-    episodeContainerTransiton.style.zIndex = 10;
-    episodeContainer.style.zIndex = -1;
+    episodeContainerTransition.style.display = 'block';
+    episodeContainerTransition.style.opacity = 1;
+    //episodeContainerTransition.style.zIndex = 10;
+    //episodeContainer.style.zIndex = -1;
     
     // get current episode index
-    var currentIndex = episodeContainerTransiton.getAttribute('episodeIndex');
+    var currentIndex = episodeContainerTransition.getAttribute('episodeIndex');
     var currentEntry = jsonData[currentIndex];
     document.getElementById('episode_dropdown').value = currentIndex;  
 
     // hide episodeContainerTransition
     setTimeout(function(){
         setEpisodeContainer('episodeContainer', currentEntry);
-        episodeContainerTransiton.style.opacity = 0;
-        episodeContainerTransiton.style.zIndex = -1;
-        episodeContainer.style.zIndex = 10;
+        episodeContainerTransition.style.opacity = 0;
+        //episodeContainerTransition.style.zIndex = -1;
+        episodeContainerTransition.style.display = 'none';
+        //episodeContainer.style.zIndex = 10;
     }, 400);
     // prepare and load next episode for transition
     setTimeout(function(){
