@@ -182,8 +182,6 @@ function setEpisodeContainer(containerID, randomEntry){
 
 // function to display an episode, handles transition
 function displayEpisode(randomEntry) {
-    console.log('Display episode: ' + randomEntry['episode_number'] + ' - ' + randomEntry['episode_title']);
-
     setEpisodeContainer('episodeContainer', randomEntry);
     document.getElementById('episode_dropdown').value = jsonData.indexOf(randomEntry);
 }
