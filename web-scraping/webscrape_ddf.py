@@ -14,7 +14,7 @@ output_name_kids = "episode_list_kids.json"  # Replace with the name of the outp
 image_foldername = 'assets/episode_images'  # Replace with the name of the folder where the images should be saved
 image_foldername_kids = 'assets/episode_images_kids'  # Replace with the name of the folder where the images should be saved
 
-MAXPAGE = 1  # Replace with the number of subpages to scrape, or set to None to scrape all subpages
+MAXPAGE = None  # Replace with the number of subpages to scrape, or set to None to scrape all subpages
 
 # ------------ Don't change below this line ------------
 root_url = "https://dreifragezeichen.de"  # Replace with the root URL of the audiobook series
