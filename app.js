@@ -45,8 +45,8 @@ function createDropdown() {
 
     // add event listener to dropdown
     document.getElementById('episode_dropdown').addEventListener('change', function() {
-        setEpisodeContainer('episodeContainerTransition', jsonData[this.value]);
-        displayEpisode(pickRandomEntry());
+        setEpisodeContainer('episodeContainer', jsonData[this.value]);
+        //displayEpisode(pickRandomEntry());
     });
 };
 
@@ -182,32 +182,8 @@ function setEpisodeContainer(containerID, randomEntry){
 
 // function to display an episode, handles transition
 function displayEpisode(randomEntry) {
-    var episodeContainer = document.getElementById('episodeContainer');
-    var episodeContainerTransition = document.getElementById('episodeContainerTransition');  
-
-    // fade in new episode
-    episodeContainerTransition.style.display = 'block';
-    episodeContainerTransition.style.opacity = 1;
-    //episodeContainerTransition.style.zIndex = 10;
-    //episodeContainer.style.zIndex = -1;
-    
-    // get current episode index
-    var currentIndex = episodeContainerTransition.getAttribute('episodeIndex');
-    var currentEntry = jsonData[currentIndex];
-    document.getElementById('episode_dropdown').value = currentIndex;  
-
-    // hide episodeContainerTransition
-    setTimeout(function(){
-        setEpisodeContainer('episodeContainer', currentEntry);
-        episodeContainerTransition.style.opacity = 0;
-        //episodeContainerTransition.style.zIndex = -1;
-        episodeContainerTransition.style.display = 'none';
-        //episodeContainer.style.zIndex = 10;
-    }, 400);
-    // prepare and load next episode for transition
-    setTimeout(function(){
-        setEpisodeContainer('episodeContainerTransition', randomEntry);
-    }, 900);
+    setEpisodeContainer('episodeContainer', randomEntry);
+    document.getElementById('episode_dropdown').value = jsonData.indexOf(randomEntry);
 }
 
 // --- Button Handler ---
@@ -331,19 +307,12 @@ function loadEpisodes() {
     setEpisodeContainer('episodeContainer', randomEntry);
     episodeContainer.style.opacity = 1;
     document.getElementById('episode_dropdown').value = jsonData.indexOf(randomEntry);
-
-    // prepare next episode in transition container
-    var randomEntry = pickRandomEntry();
-    setEpisodeContainer('episodeContainerTransition', randomEntry);
-    episodeContainerTransiton.style.opacity = 0;
-
 }
 
 // ###### Main #####
 // #################
 // -- variables --
 var episodeContainer = document.getElementById('episodeContainer');
-var episodeContainerTransiton = document.getElementById('episodeContainerTransition');  
 
 // Read the JSON file
 readJSONFile(jsonFilePath, displayJSONData);
