@@ -26,8 +26,25 @@ base_url_kids = "https://www.dreifragezeichen-kids.de/produktwelt/hoerspiele"  #
 # ================== Functions ==================
 
 def get_episodes(root_url, base_url, output_name):
-    print('Getting Informations...')
+    
+    # --- read existing episode list ---
+    # check if file exists, if yes, read it, if not, create empty list, else read it, 
+    # if fullUpdate is set to True, ignore existing list
+    if args.fullUpdate:
+        episode_list = []
+    elif os.path.exists(output_name):
+        # if not empty, read it
+        if os.path.getsize(output_name) == 0:
+            episode_list = []
+            print(f"Found empty file {output_name}.")
+        else:
+            with open(output_name, 'r', encoding='utf-8') as infile:
+                episode_list = json.load(infile)
+                print(f"Found {len(episode_list)} episodes in {output_name}.")
 
+
+    # --- Get the number of subpages ---
+    print('Getting Informations...')
     page = requests.get(base_url)
     soup = BeautifulSoup(page.content, "html.parser")
 
@@ -39,21 +56,21 @@ def get_episodes(root_url, base_url, output_name):
 
     # ------ Get Content from Subpages ------
     # iterate over each subpage
-    episode_list = []
     for page in range(1, int(max_page)+1):
+        # -- get subpage content --
         subpage_url = f"{base_url}?page={page}"  # Replace with the subpage URL format
         print(f'\nGetting page {page} ...')
         print(f'\t{subpage_url}')
 
         response = requests.get(subpage_url)
         soup = BeautifulSoup(response.text, "html.parser")
-        #soup = BeautifulSoup(response.text, 'html.parser')
 
         # --- Get all episode cards ---
         # Find all the episode elements on the current subpage
         episode_cards = soup.find_all("div", class_="card-expandable")  # Replace with the appropriate HTML element and class
 
         # --- Extract episode numbers and links ---
+        duplicate_count = 0
         for episode_card in episode_cards:
 
             try:
@@ -93,7 +110,26 @@ def get_episodes(root_url, base_url, output_name):
                     episode_date = date_pattern.search(episode_date).group()   # get date from string
                     dict['episode_date'] = episode_date
 
-                    # episode image
+                    # --- if not fullUpdate, check if episode is already in list ---
+                    if not args.fullUpdate:
+                        episodeExists = False
+                        # check if episode is already in list, by comparing episode number, title and date
+                        for d in episode_list:
+                            if d['episode_number'] == dict['episode_number'] and d['episode_title'] == dict['episode_title'] and d['episode_date'] == dict['episode_date']:
+                                print(f"\t-- already in list: Folge {dict['episode_number']} - {dict['episode_title']}")
+                                duplicate_count += 1
+                                episodeExists = True
+                                break   # break loop if episode already exists
+
+                        # skip episode collection if more than 3 duplicates found
+                        if episodeExists:
+                            if duplicate_count >= 3:
+                                print(f"Found {duplicate_count} duplicates. Skip collection.")
+                                break
+                            continue 
+
+                    # continue with episode collection
+                    # --- get episode image ---
                     episode_image = episode_card.find('img', class_='product-thumb')['src']
                     if not episode_image.startswith('https:'):
                         episode_image = 'https:' + episode_image
@@ -101,7 +137,6 @@ def get_episodes(root_url, base_url, output_name):
 
                     # episode page
                     dict['on_page'] = page
-
 
                     # --- get all links ---
                     episode_socialRow = episode_card.find("div", class_="social-row")  # social row with all links
@@ -149,7 +184,7 @@ def get_episodes(root_url, base_url, output_name):
             except Exception as e:
                 print(f'\tError: {e}')
                 continue
-    print(f"\nFound {len(episode_list)} episodes.")
+    print(f"\nFound {len(episode_list)} episodes in episode list.")
 
     # ------ sort and save ------
     # sort dict by episode number
@@ -194,15 +229,20 @@ def download_images(episode_list, image_foldername):
         os.makedirs(image_foldername)
 
     # check if image already exists
+    episodes_to_download = []
     for episode in episode_list:
         image_url = episode['episode_image']
         image_name = image_url.split('/')[-1]
-        if os.path.isfile(f'{image_foldername}/{image_name}'):
-            print(f"\timage {image_name} already exists")
-            episode_list.remove(episode)
+        print(f"\tChecking image {image_name}")
+
+        # # if does not exist, add to download list
+        if not os.path.isfile(f'{image_foldername}/{image_name}'):
+            episodes_to_download.append(episode)
+        else:
+            print(f"\t-- already exists")
 
     # download images
-    for episode in episode_list:
+    for episode in episodes_to_download:
         print(f"\n\tDownloading image {episode['episode_number']} - {episode['episode_title']}...")
         image_url = episode['episode_image']
         image_name = image_url.split('/')[-1]
@@ -231,6 +271,7 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('--mode', type=str, default='all', help='Mode: all, regular, kids')
     parser.add_argument('--download_images', type=bool, default=True, help='Download images from CDN')
+    parser.add_argument('--fullUpdate', type=bool, default=False, help='Update all episodes, even if they already exist in the list')
     args = parser.parse_args()
 
     try:
