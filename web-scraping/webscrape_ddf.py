@@ -56,7 +56,11 @@ def get_episodes(root_url, base_url, output_name):
 
     # ------ Get Content from Subpages ------
     # iterate over each subpage
+    finishCollection = False
     for page in range(1, int(max_page)+1):
+        if finishCollection:   # finish collection if duplicate episodes found
+            break
+
         # -- get subpage content --
         subpage_url = f"{base_url}?page={page}"  # Replace with the subpage URL format
         print(f'\nGetting page {page} ...')
@@ -119,6 +123,7 @@ def get_episodes(root_url, base_url, output_name):
                                 print(f"\t-- already in list: Folge {dict['episode_number']} - {dict['episode_title']}")
                                 duplicate_count += 1
                                 episodeExists = True
+                                finishCollection = True
                                 break   # break loop if episode already exists
 
                         # skip episode collection if more than 3 duplicates found
