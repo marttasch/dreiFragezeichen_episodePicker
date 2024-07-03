@@ -17,23 +17,6 @@
         "episode_description": "Bereits in der ersten Folge machen die drei berühmten Detektive ihrem Namen alle Ehre. Eigentlich haben Justus, Peter und Bob ja gerade Ferien. Doch dann treffen sie den kuriosen Kapitän Larson, der einen kleinen Privatzoo besitzt. Als plötzlich alle seine Tiere krank werden und keine Besucher mehr kommen, wird die Neugier der Fragezeichen geweckt. Schon bald ahnen sie, dass da jemand ein düsteres Geheimnis hütet. Es riecht gewaltig nach Abenteuer!!!"
     },
     {
-        "episode_number": "2_1",
-        "episode_title": "Radio Rocky Beach",
-        "episode_age": "5",
-        "episode_date": "13.04.2009",
-        "episode_image": "//cdn.smehost.net/hcmssmeappscom-delabelsprod/produktwelt/hoerspiele/cover/ddfk_cd_002.jpg",
-        "on_page": 8,
-        "episode_links": {
-            "amazon": "http://www.amazon.de/exec/obidos/ASIN/B01CV1A0HS/1134869_diedreifragezeichenkids-21",
-            "apple": "https://geo.itunes.apple.com/de/album/id1092534740?mt=1&app=itunes&at=10lwr5&ct=1134869",
-            "deezer": "https://www.deezer.com/album/12761762",
-            "spotify": "https://open.spotify.com/album/50d2KMK7GtbCTfLqxDfHIS?si=774elhsdRVWUfODs8EzuNw",
-            "youtube": "https://music.youtube.com/playlist?list=OLAK5uy_nCR1RUYDpr0gXFyenOSwh9s7j2UHFZ1i8"
-        },
-        "episode_Pagelink": "https://www.dreifragezeichen-kids.de/produktwelt/produkt-details/radio-rocky-beach-1",
-        "episode_description": "\"Hier ist Radio Rocky Beach, der coolste Sender zwischen Miami und Alaska!\" DJ Wolfman ist mit seinem Piratensender immer auf der richtigen Welle - da sind sich auch die drei Detektive einig. Doch währenddessen wird nicht nur Tante Mathildas Wagen aufgebrochen, auch anderswo in Rocky Beach gibt es regelmäßig zu DJ Wolfmans Sendezeit Einbrüche. Justus ist sicher: Da muss es einen Zusammenhang geben. Aber wo sollen die drei Fragezeichen mit ihren Ermittlungen anfangen? Ah, eine Idee: Sie wollen den Übeltätern dazwischenfunken..."
-    },
-    {
         "episode_number": "2",
         "episode_title": "Mini-Fall/ Die Räuberjagd",
         "episode_age": "",
@@ -348,6 +331,23 @@
         },
         "episode_Pagelink": "https://www.dreifragezeichen-kids.de/produktwelt/produkt-details/die-schmugglerinsel-1",
         "episode_description": "Onkel Titus hat eine ganze Insel geerbt. Natürlich lassen es sich die drei ??? Kids nicht nehmen, \"Magic Island\" zu erforschen. Doch anscheinend sind sie nicht allein auf der Insel. Sie finden rätselhafte Fußabdrücke und die Spur führt in eine geheimnisvolle Felsenhöhle. Das Abenteuer beginnt."
+    },
+    {
+        "episode_number": "2_1",
+        "episode_title": "Radio Rocky Beach",
+        "episode_age": "5",
+        "episode_date": "13.04.2009",
+        "episode_image": "//cdn.smehost.net/hcmssmeappscom-delabelsprod/produktwelt/hoerspiele/cover/ddfk_cd_002.jpg",
+        "on_page": 8,
+        "episode_links": {
+            "amazon": "http://www.amazon.de/exec/obidos/ASIN/B01CV1A0HS/1134869_diedreifragezeichenkids-21",
+            "apple": "https://geo.itunes.apple.com/de/album/id1092534740?mt=1&app=itunes&at=10lwr5&ct=1134869",
+            "deezer": "https://www.deezer.com/album/12761762",
+            "spotify": "https://open.spotify.com/album/50d2KMK7GtbCTfLqxDfHIS?si=774elhsdRVWUfODs8EzuNw",
+            "youtube": "https://music.youtube.com/playlist?list=OLAK5uy_nCR1RUYDpr0gXFyenOSwh9s7j2UHFZ1i8"
+        },
+        "episode_Pagelink": "https://www.dreifragezeichen-kids.de/produktwelt/produkt-details/radio-rocky-beach-1",
+        "episode_description": "\"Hier ist Radio Rocky Beach, der coolste Sender zwischen Miami und Alaska!\" DJ Wolfman ist mit seinem Piratensender immer auf der richtigen Welle - da sind sich auch die drei Detektive einig. Doch währenddessen wird nicht nur Tante Mathildas Wagen aufgebrochen, auch anderswo in Rocky Beach gibt es regelmäßig zu DJ Wolfmans Sendezeit Einbrüche. Justus ist sicher: Da muss es einen Zusammenhang geben. Aber wo sollen die drei Fragezeichen mit ihren Ermittlungen anfangen? Ah, eine Idee: Sie wollen den Übeltätern dazwischenfunken..."
     },
     {
         "episode_number": "21",
@@ -1518,5 +1518,41 @@
         },
         "episode_Pagelink": "https://www.dreifragezeichen-kids.de/produktwelt/produkt-details/gefahr-im-spiegelkabinett-1",
         "episode_description": "Onkel Titus kauft ein altes Spiegelkabinett. Bei genauerer Inspektion hören die drei ??? Kids plötzlich rätselhafte Reime.Vielleicht kann der berühmte Rätselerfinder Mr Think helfen? Doch als Justus, Peter und Bob in seiner Villa ankommen, fehlt von ihm jede Spur... "
+    },
+    {
+        "episode_number": "95",
+        "episode_title": "Geheime Zeichen",
+        "episode_age": "",
+        "episode_date": "08.03.2024",
+        "episode_image": "https://cdn.smehost.net/hcmssmeappscom-delabelsprod/produktwelt/hoerspiele/cover/ddfk-95.jpg",
+        "on_page": 1,
+        "episode_links": {
+            "amazon": "https://music.amazon.de/albums/B0CQPHMYT2",
+            "apple": "https://music.apple.com/de/album/folge-95-geheime-zeichen/1722294645",
+            "deezer": "https://www.deezer.com/de/album/526050892",
+            "horspielplayer": "https://play-horspielplayer.tunedglobal.com/albums/221746829",
+            "spotify": "https://open.spotify.com/intl-de/album/3xIGmydqrJOShru5bQmSVa?si=Hk0bq5IBTaOhX2aOBN0-jg",
+            "youtube": "https://music.youtube.com/playlist?list=OLAK5uy_nCYVueYngmzpzQozCrdCrbLqww_1CBCJM"
+        },
+        "episode_Pagelink": "https://www.dreifragezeichen-kids.de/produktwelt/produkt-details/geheime-zeichen",
+        "episode_description": "Einbruch in einer Villa! Bei der Untersuchung des Tatorts fällt den drei ??? Kids ein merkwürdiges Kreidezeichen auf. Was hat es damit auf sich? Justus, Peter und Bob müssen Kommissar Reynolds helfen, weitere Einbrüche zu verhindern.  "
+    },
+    {
+        "episode_number": "96",
+        "episode_title": "Der Schrottkönig",
+        "episode_age": "",
+        "episode_date": "17.05.2024",
+        "episode_image": "https://cdn.smehost.net/hcmssmeappscom-delabelsprod/produktwelt/hoerspiele/cover/ddfk-96.jpg",
+        "on_page": 1,
+        "episode_links": {
+            "amazon": "https://music.amazon.de/albums/B0CYDMQ5YF",
+            "apple": "https://music.apple.com/de/album/folge-96-der-schrottk%C3%B6nig/1736560641",
+            "deezer": "https://www.deezer.com/de/album/572466221",
+            "horspielplayer": "https://play-horspielplayer.tunedglobal.com/albums/235268374",
+            "spotify": "https://open.spotify.com/intl-de/album/4MvsJSPLzWm6irgVI2PXfo?si=NhZ4ui9SRIaTZMMYrQw9gQ",
+            "youtube": "https://music.youtube.com/playlist?list=OLAK5uy_k2IWAZFscpqHiMbZ5f1vnlTLBZtIvVhCg"
+        },
+        "episode_Pagelink": "https://www.dreifragezeichen-kids.de/produktwelt/produkt-details/der-schrottkonig",
+        "episode_description": "Onkel Titus ist verzweifelt, denn kaum ein Kunde verirrt sich mehr auf den Schrottplatz. Und beim neuen Konkurrenten sind gebrauchte Ersatzteile viel günstiger. Wie kann das sein? Justus, Peter und Bob nehmen die Ermittlungen auf und landen in der Höhle des Löwen. "
     }
 ]
