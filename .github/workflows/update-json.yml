@@ -25,13 +25,20 @@ jobs:
 
     - name: Run the update script
       run: python web-scraping/webscrape_ddf.py
-
+      
     - name: Commit and push changes
       run: |
         git config --global user.name 'github-actions'
         git config --global user.email 'github-actions@github.com'
         git add .
-        git commit -m 'Automated JSON update'
-        git push
+        # Check if there are any changes
+        git diff --staged --exit-code || changed=$?
+        # If changes are present, then commit and push
+        if [ "$changed" = "1" ]; then
+          git commit -m 'Automated JSON update'
+          git push
+        else
+          echo "No changes detected, skipping commit."
+        fi
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
