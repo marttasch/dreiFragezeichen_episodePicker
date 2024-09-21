@@ -1590,5 +1590,23 @@
         },
         "episode_Pagelink": "https://www.dreifragezeichen-kids.de/produktwelt/produkt-details/der-schrottkonig",
         "episode_description": "Onkel Titus ist verzweifelt, denn kaum ein Kunde verirrt sich mehr auf den Schrottplatz. Und beim neuen Konkurrenten sind gebrauchte Ersatzteile viel günstiger. Wie kann das sein? Justus, Peter und Bob nehmen die Ermittlungen auf und landen in der Höhle des Löwen. "
+    },
+    {
+        "episode_number": "97",
+        "episode_title": "Die Fragezeichen-Falle",
+        "episode_age": "",
+        "episode_date": "20.09.2024",
+        "episode_image": "https://cdn-p.smehost.net/sites/374be6422f2b494ab9128079a4bd7dfd/produktwelt/hoerspiele/cover/ddfk-97.jpg",
+        "on_page": 1,
+        "episode_links": {
+            "amazon": "https://music.amazon.de/albums/B0D9QBZ2SY",
+            "apple": "https://music.apple.com/de/album/folge-97-die-fragezeichen-falle/1758038649",
+            "deezer": "https://www.deezer.com/de/album/622297231",
+            "horspielplayer": "https://play-horspielplayer.tunedglobal.com/albums/247452342",
+            "spotify": "https://open.spotify.com/intl-de/album/0pIth1U2QD7sdvjt4xpRvS?si=O59ayOOBS56BO2MOBqIlNw",
+            "youtube": "https://music.youtube.com/playlist?list=OLAK5uy_m77FUfr3Dj6pFU-PR-Ft6oomXmzLxtBhw"
+        },
+        "episode_Pagelink": "https://www.dreifragezeichen-kids.de/produktwelt/produkt-details/die-fragezeichen-falle",
+        "episode_description": "Trotz der Verhaftung eines Briefkastendiebes kommt Rocky Beach nicht zur Ruhe. Plötzlich tauchen in der Stadt überall Fragezeichen auf. Doch wer außer den drei ??? Kids hinterlässt Kreidezeichen in den Farben Weiß, Rot und Blau?"
     }
 ]
