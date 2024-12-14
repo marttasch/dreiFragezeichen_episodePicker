@@ -1608,5 +1608,22 @@
         },
         "episode_Pagelink": "https://www.dreifragezeichen-kids.de/produktwelt/produkt-details/die-fragezeichen-falle",
         "episode_description": "Trotz der Verhaftung eines Briefkastendiebes kommt Rocky Beach nicht zur Ruhe. Plötzlich tauchen in der Stadt überall Fragezeichen auf. Doch wer außer den drei ??? Kids hinterlässt Kreidezeichen in den Farben Weiß, Rot und Blau?"
+    },
+    {
+        "episode_number": "98",
+        "episode_title": "Die Geisterpferde",
+        "episode_age": "",
+        "episode_date": "13.12.2024",
+        "episode_image": "https://cdn-p.smehost.net/sites/374be6422f2b494ab9128079a4bd7dfd/produktwelt/hoerspiele/cover/ddfk-98.jpg",
+        "on_page": 1,
+        "episode_links": {
+            "amazon": "https://music.amazon.de/albums/B0DMKTJLPL",
+            "apple": "https://music.apple.com/de/album/folge-98-die-geisterpferde/1779340094",
+            "deezer": "https://www.deezer.com/de/album/669097181",
+            "spotify": "https://open.spotify.com/prerelease/1UDDcInRz9lGXBxRxoncoQ?si=affb1cf875ec4871",
+            "youtube": "https://music.youtube.com/playlist?list=OLAK5uy_k5pH4P4van9o-shFfVebEhGVHFrdUkC9Q"
+        },
+        "episode_Pagelink": "https://www.dreifragezeichen-kids.de/produktwelt/produkt-details/die-geisterpferde",
+        "episode_description": "Die drei ??? Kids ermitteln undercover und treffen auf mysteriöse Reiter. Aber sind sie wirklich die gesuchten Diebe? Ein spannender Fall voller Geheimnisse und rätselhafter Vorgänge. "
     }
 ]
