@@ -1625,5 +1625,23 @@
         },
         "episode_Pagelink": "https://www.dreifragezeichen-kids.de/produktwelt/produkt-details/die-geisterpferde",
         "episode_description": "Die drei ??? Kids ermitteln undercover und treffen auf mysteriöse Reiter. Aber sind sie wirklich die gesuchten Diebe? Ein spannender Fall voller Geheimnisse und rätselhafter Vorgänge. "
+    },
+    {
+        "episode_number": "99",
+        "episode_title": "Football-Falle",
+        "episode_age": "",
+        "episode_date": "04.04.2025",
+        "episode_image": "https://cdn-p.smehost.net/sites/374be6422f2b494ab9128079a4bd7dfd/produktwelt/hoerspiele/cover/ddfk-99.jpg",
+        "on_page": 1,
+        "episode_links": {
+            "amazon": "https://music.amazon.de/albums/B0DY1P8CJ8",
+            "apple": "https://music.apple.com/de/album/folge-99-football-falle/1797766577",
+            "deezer": "https://www.deezer.com/de/album/717915141",
+            "horspielplayer": "https://play-horspielplayer.tunedglobal.com/albums/284708530",
+            "spotify": "https://open.spotify.com/intl-de/album/4IMxyQClyxn6nLxYAK1BDs?si=B5Y8P8bjRhWg7qgVPshZqQ",
+            "youtube": "https://music.youtube.com/playlist?list=OLAK5uy_kBEgsV6SeWy1G9cN0AH8lBhuYk3dthvHU"
+        },
+        "episode_Pagelink": "https://www.dreifragezeichen-kids.de/produktwelt/produkt-details/football-falle",
+        "episode_description": "Ein Football-Training der besonderen Art. Justus, Peter und Bob sind dabei, als ein Spieler unter Verdacht gerät, mit gefälschten Tickets zu handeln. Ein Fall für die drei ??? Kids. "
     }
 ]
