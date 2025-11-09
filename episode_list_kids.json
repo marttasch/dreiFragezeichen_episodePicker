@@ -1643,5 +1643,19 @@
         },
         "episode_Pagelink": "https://www.dreifragezeichen-kids.de/produktwelt/produkt-details/football-falle",
         "episode_description": "Ein Football-Training der besonderen Art. Justus, Peter und Bob sind dabei, als ein Spieler unter Verdacht gerät, mit gefälschten Tickets zu handeln. Ein Fall für die drei ??? Kids. "
+    },
+    {
+        "episode_number": "100",
+        "episode_title": "100 Stunden",
+        "episode_age": "",
+        "episode_date": "01.08.2025",
+        "episode_image": "https://cdn-p.smehost.net/sites/374be6422f2b494ab9128079a4bd7dfd/produktwelt/hoerspiele/cover/ddfk-100.jpg",
+        "on_page": 1,
+        "episode_links": {
+            "amazon": "https://music.amazon.de/albums/B0FGPXM5Q9",
+            "spotify": "https://open.spotify.com/prerelease/6hpYdZ73DXL4oxBQePOdkK?si=f9476d66d8fa43d7"
+        },
+        "episode_Pagelink": "https://www.dreifragezeichen-kids.de/produktwelt/produkt-details/100-stunden-1",
+        "episode_description": "Justus, Peter und Bob haben genau 100 Stunden Zeit, um die Forderungen eines Erpressers zu erfüllen. Ein aufregender Fall, der die drei Freunde schließlich sogar in Gefängnis führt. Der Countdown läuft! "
     }
 ]
