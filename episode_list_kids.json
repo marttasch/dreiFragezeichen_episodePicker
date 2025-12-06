@@ -1657,5 +1657,22 @@
         },
         "episode_Pagelink": "https://www.dreifragezeichen-kids.de/produktwelt/produkt-details/100-stunden-1",
         "episode_description": "Justus, Peter und Bob haben genau 100 Stunden Zeit, um die Forderungen eines Erpressers zu erfüllen. Ein aufregender Fall, der die drei Freunde schließlich sogar in Gefängnis führt. Der Countdown läuft! "
+    },
+    {
+        "episode_number": "101",
+        "episode_title": "Geistermusik",
+        "episode_age": "",
+        "episode_date": "05.12.2025",
+        "episode_image": "https://cdn-p.smehost.net/sites/374be6422f2b494ab9128079a4bd7dfd/produktwelt/hoerspiele/cover/ddfk-101.jpg",
+        "on_page": 1,
+        "episode_links": {
+            "amazon": "https://music.amazon.de/albums/B0FY3RH8F9",
+            "deezer": "https://www.deezer.com/de/album/846003612",
+            "horspielplayer": "https://play-horspielplayer.tunedglobal.com/albums/320522824",
+            "spotify": "https://open.spotify.com/prerelease/6mRQ1l5Atz4BP0vPWgETgC?si=5879695f3566457e",
+            "youtube": "https://music.youtube.com/playlist?list=OLAK5uy_mhzud6oTNix1J6IL65ekgcjBpA_Z1F-j4"
+        },
+        "episode_Pagelink": "https://www.dreifragezeichen-kids.de/produktwelt/produkt-details/geistermusik-1",
+        "episode_description": "Onkel Titus hat einen alten Konzertflügel ergattert. Doch plötzlich hören Justus, Peter und Bob unerklärliche Töne in der Nacht. Spielt das Klavier etwa von selbst? Die drei ??? Kids sind ratlos. Hat hier ein Geist die Hände im Spiel? "
     }
 ]
