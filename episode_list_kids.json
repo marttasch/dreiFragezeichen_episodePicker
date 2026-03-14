@@ -1674,5 +1674,20 @@
         },
         "episode_Pagelink": "https://www.dreifragezeichen-kids.de/produktwelt/produkt-details/geistermusik-1",
         "episode_description": "Onkel Titus hat einen alten Konzertflügel ergattert. Doch plötzlich hören Justus, Peter und Bob unerklärliche Töne in der Nacht. Spielt das Klavier etwa von selbst? Die drei ??? Kids sind ratlos. Hat hier ein Geist die Hände im Spiel? "
+    },
+    {
+        "episode_number": "102",
+        "episode_title": "Spur der Tresorknacker",
+        "episode_age": "",
+        "episode_date": "13.03.2026",
+        "episode_image": "https://cdn-p.smehost.net/sites/374be6422f2b494ab9128079a4bd7dfd/produktwelt/hoerspiele/cover/ddfk-102.jpg",
+        "on_page": 1,
+        "episode_links": {
+            "amazon": "https://music.amazon.de/albums/B0GKHF99PP",
+            "apple": "https://music.apple.com/de/album/folge-102-spur-der-tresorknacker/1872987119",
+            "spotify": "https://open.spotify.com/prerelease/0Jf5FWRRw0rnLEAwm8KZT9?si=36068060b7d847d9"
+        },
+        "episode_Pagelink": "https://www.dreifragezeichen-kids.de/produktwelt/produkt-details/spur-der-tresorknacker",
+        "episode_description": "Die drei ??? Kids übernehmen einen überaus mysteriösen Fall. Die Spuren führen zu einem Tresorexperten, der alles über Sicherheitssysteme weiß. Justus, Peter und Bob ermitteln in ganz unterschiedliche Richtungen. "
     }
 ]
